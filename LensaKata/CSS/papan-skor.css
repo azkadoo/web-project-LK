@@ -1,0 +1,59 @@
+* {
+  font-family: "Poppins", sans-serif;
+}
+body {
+  text-align: center;
+  padding-top: 20px;
+  margin: 0;
+  padding: 5;
+}
+table.leaderboard {
+  width: 50%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+h2 {
+  color: #fff;
+}
+
+table.leaderboard th,
+table.leaderboard td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+table.leaderboard th {
+  background-color: #295f98;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+table.leaderboard tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table.leaderboard tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+table.leaderboard td {
+  font-size: 1.1em;
+}
+button {
+  background-color: #ffcc00;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ffcc00;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
