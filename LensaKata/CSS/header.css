@@ -25,17 +25,20 @@ nav {
   position: relative;
   z-index: 2;
 }
+.custom-navbar .nav-link,
+.custom-navbar .navbar-brand {
+  color: #fff;
+}
 
+.custom-navbar .nav-link:hover,
+.custom-navbar .navbar-brand:hover {
+  color: #333;
+}
 ul {
   list-style: none;
   display: flex;
   gap: 20px;
   padding-right: 48px;
-}
-
-ul li a {
-  text-decoration: none;
-  color: white;
 }
 
 .logo {

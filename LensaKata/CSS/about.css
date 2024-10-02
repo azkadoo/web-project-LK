@@ -44,6 +44,10 @@ section {
   margin: auto;
 }
 
+main {
+  text-align: center;
+  margin: 15px;
+}
 .card {
   background-color: rgb(207, 207, 207);
   border-radius: 10px;
@@ -54,28 +58,14 @@ section {
   align-items: center;
   text-align: center;
   padding: 20px 0;
-  height: 310px;
+  height: 420px;
   text-decoration: none;
 }
 
 .card img {
   width: 200px;
-  height: 100px;
+  height: 200px;
   max-height: 300px;
   object-fit: cover;
   margin-bottom: 20px;
-}
-
-.card h3 {
-  font-size: 1.2rem;
-  color: #3b519d;
-  margin-top: 10px;
-}
-
-.card p {
-  font-size: 0.9rem;
-  color: #333;
-  margin-top: 5px;
-  width: 70%;
-  flex-grow: 1;
 }

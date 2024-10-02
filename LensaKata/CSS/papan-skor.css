@@ -1,5 +1,6 @@
 * {
   font-family: "Poppins", sans-serif;
+  text-align: center;
 }
 body {
   text-align: center;
@@ -7,6 +8,7 @@ body {
   margin: 0;
   padding: 5;
 }
+
 table.leaderboard {
   width: 50%;
   margin: 20px auto;
