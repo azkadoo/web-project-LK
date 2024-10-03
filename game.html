@@ -1,51 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/game.css">
-    <link rel="stylesheet" href="CSS/styles.css">
-    <title>Permainan</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>LensaKata</title>
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="bootstrap-5.3.3-dist/css/bootstrap.min.css">
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="index.html" class="logo"><h1>LensaKata</h1></a>
-            <a href="#" class="daftar">
-                <p>
-                    Masuk/Daftar
-                </p>
-            </a>
-        </nav>
-        <main>
-            <article>
-                <p>Pilih game yang akan dimainkan</p>
-            </article>
-            <figure>
-                <div class="game">
-                    <a href="games/petualangan_kata.html" class="card">
-                        <img src="Img/img-game-1.png" alt="Game 1">
-                        <h3>Petualang Kata</h3>
-                        <p>Mainkan game petualangan kata untuk memahami sejarah dan legenda Indonesia</p>
-                    </a>
-                    <a href="games/pulau_kata.html" class="card">
-                        <img src="Img/img-game-2.png" alt="Game 2">
-                        <h3>Pulau Kata</h3>
-                        <p>Mainkan game ini untuk meningkatkan kemampuan mengarangmu</p>
-                    </a>
-                    <a href="games/sambung_kata.html" class="card">
-                        <img src="Img/img-game-3.png" alt="Game 3">
-                        <h3>Sambung Kata</h3>
-                        <p>Mainkan game ini untuk menguji pemahaman menyambung kata-kata</p>
-                    </a>
-                    <a href="games/sinonim_antonim_kata.html" class="card">
-                        <img src="Img/img-game-4.png" alt="Game 4">
-                        <h3>Sinonim/Anonim Kata</h3>
-                        <p>Mainkan game ini untuk mengetahui sinonim dan anonim kata</p>
-                    </a>
-                </div>
-            </figure>
-        </main>
-    </header>
+<body><center>
+	<h2 class="judul">Pilih Game</h2>
+	<div class="kartu">
+	<div class="row row-cols-2 row-cols-md-5 g-4">
+		<div class="col">
+		  <div class="card h-100">
+			<img src="image/petualangan.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+			  <h5 class="card-title">Petualangan Kata</h5>
+			  <p class="card-text">Mainkan game ini untuk memahami sejarah dan legenda indonesia</p>
+			  <a href="#" class="btn btn-warning">Main Sekarang</a>
+			</div>
+		  </div>
+		</div>
+		<div class="col">
+		  <div class="card h-100">
+			<img src="image/pulau.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+			  <h5 class="card-title">Pulau Kata</h5>
+			  <p class="card-text">Mainkan game ini untuk meningkatkan kemampuan mengarangmu</p>
+			  <a href="#" class="btn btn-warning">Main Sekarang</a>
+			</div>
+		  </div>
+		</div>
+		<div class="col">
+		  <div class="card h-100">
+			<img src="image/sambungkata.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+			  <h5 class="card-title">Sambung Kata</h5>
+			  <p class="card-text">Mainkan game ini untuk menguji pemahaman menyambung kata</p>
+			  <a href="#" class="btn btn-warning">Main Sekarang</a>
+			</div>
+		  </div>
+		</div>
+		<div class="col">
+		  <div class="card h-100">
+			<img src="image/sinonim.png" class="card-img-top" alt="...">
+			<div class="card-body">
+			  <h5 class="card-title">Sinonim/Anonim</h5>
+			  <p class="card-text">Mainkan game ini untuk mengetahui sinonim dan anonim kata </p>
+			  <a href="#" class="btn btn-warning">Main Sekarang</a>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  </div>
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

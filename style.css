@@ -1,0 +1,59 @@
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+    color: white;
+    background-image: url(image/ilustrasi.png);
+    background-size:100%;
+
+}
+
+.navbar{
+	margin-top: 15px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-radius:25px;
+    margin-left: 25px;
+	margin-right: 25px;
+}
+
+.beranda{
+	margin-top: 170px;
+}
+h1{
+	color: white;
+	font-weight: bold;
+
+}
+h4{
+	color: white;
+}
+#tentangkami{
+    
+    height: 600px;
+	width: 1255px;
+    background-color: #895129 ;
+    color: white;
+}
+.about{
+    margin-left: 100px;
+}
+section img{
+   margin-top: 100px;
+   margin-left: 130px;
+   width: 300px;
+   height: 300px;
+}
+section h2{
+	margin-top: 120px;
+}
+#kontak{
+    height: 600px;
+	width: 1255px;
+    background-color: #895129 ;
+    color: white;
+}
+
+
+
+
+
+
