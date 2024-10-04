@@ -1,0 +1,40 @@
+nav {
+    width: 95%;
+    height: 8vh;
+    background-color: #295F98;
+    margin: 20px auto;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    border-radius: 20px;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding-right: 48px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    padding-left: 48px;
+}
+
+.container-header {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.slogan {
+    width: 50%;
+    background-color: blue;
+}
