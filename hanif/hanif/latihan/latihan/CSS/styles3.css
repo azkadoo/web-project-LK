@@ -1,0 +1,93 @@
+body {
+	font-family: Arial, sans-serif;
+	text-align: center;
+}
+
+.container {
+	border-radius: 12px;
+	background-color: #295F98;
+	padding: 20px;
+	color: #fff;
+	margin: 40px auto;
+	width: 80%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+p b {
+	margin-left: 5px;
+}
+
+form {
+	margin-bottom: 20px;
+}
+
+input[type="text"] {
+	width: 63.3%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	font-size: 16px;
+	outline: none;
+}
+
+input[type="text"]:focus {
+	border-color: #aaa;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.option-button {
+	border-radius: 12px;
+	border: none;
+	padding: 10px 20px;
+	background-color: #cfcfcf;
+	font-size: 16px;
+	color: #000000;
+	cursor: pointer;
+}
+
+.option-button:hover {
+	background-color: #295F98;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.col {
+	flex-basis: 45%;
+	margin: 10px;
+}
+
+.container-bottom {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 20px;
+	width: 100%;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.hapus {
+	background-color: #FF3737;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+	margin-top: 40px;
+}
+
+.periksa {
+	background-color: #295F98;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-top: 40px;
+}
