@@ -1,0 +1,1 @@
+// carousel yang secara otomatis menampilkan berbagai poster atau gambar, dengan transisi antar gambar yang halus

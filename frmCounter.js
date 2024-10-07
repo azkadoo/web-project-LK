@@ -1,0 +1,1 @@
+// menghitung jumlah karakter yang dimasukkan oleh user dan menampilkan jumlah karakter di bawah input secara real-time.

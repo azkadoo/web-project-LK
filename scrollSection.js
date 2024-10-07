@@ -1,0 +1,1 @@
+// Buat tombol yang saat diklik, akan melakukan scroll otomatis ke section tertentu di halaman (misal dari header ke testimonial section).
