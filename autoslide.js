@@ -1,8 +1,5 @@
 // carousel yang secara otomatis menampilkan berbagai poster atau gambar, dengan transisi antar gambar yang halus
 
-// carousel manual
-// Menangani interaksi pengguna dengan addEventListener untuk tombol navigasi.
-
 document.addEventListener('DOMContentLoaded', function () {
     const carouselItems = document.querySelectorAll('.carousel-item');
     const indicators = document.querySelectorAll('.carousel-indicators button');
