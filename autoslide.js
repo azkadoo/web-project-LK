@@ -1,33 +1,20 @@
 // carousel yang secara otomatis menampilkan berbagai poster atau gambar, dengan transisi antar gambar yang halus
+//jQuery
 
-document.addEventListener('DOMContentLoaded', function () {
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const indicators = document.querySelectorAll('.carousel-indicators button');
-    let currentIndex = 0;
+$(document).ready(function() {
+// Mulai carousel
+let carousel = $('#carouselExampleIndicators');
 
-    function updateCarousel(index) {
-        carouselItems.forEach((item, i) => {
-            item.classList.toggle('active', i === index);
-        });
-        indicators.forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === index);
-        });
-    }
+    // Interval 3 detik
+    let autoSlide = setInterval(function() {
+        carousel.carousel('next');
+    }, 3000);
 
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % carouselItems.length;
-        updateCarousel(currentIndex);
-    }
-
-    function prevSlide() {
-        currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-        updateCarousel(currentIndex);
-    }
-
-    document.querySelector('.carousel-control-next').addEventListener('click', nextSlide);
-    document.querySelector('.carousel-control-prev').addEventListener('click', prevSlide);
-
-    // Panggil nextSlide setiap 3 detik untuk transisi otomatis
-    setInterval(nextSlide, 3000);
-
+    // Stop auto-sliding ketika user  mengklik tombol prev/next
+    $('.carousel-control-next, .carousel-control-prev').click(function() {
+        clearInterval(autoSlide);  // Stop auto-sliding saat diklik secara manual
+        autoSlide = setInterval(function() {  // Restarts auto-sliding
+        carousel.carousel('next');
+        }, 3000);
+    });
 });
