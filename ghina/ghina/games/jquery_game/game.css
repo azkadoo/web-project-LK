@@ -406,14 +406,6 @@ body {
     }
 }
 
-.tag {
-    cursor: grab; /* Shows the "grab" cursor when hovering over tags */
-}
-
-.tag:active {
-    cursor: grabbing; /* Shows the "grabbing" cursor when the tag is being dragged */
-}
-
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
