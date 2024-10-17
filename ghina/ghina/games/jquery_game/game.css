@@ -1,0 +1,434 @@
+:root {
+    --primary-color: #257180;
+    --secondary-color: #f2e5bf;
+    --base-color: #fff6dc;
+    --secondary-text: #257180;
+}
+
+body {
+    padding-top: 100px;
+}
+
+.nav-custom {
+    background: var(--secondary-text) !important;
+    box-shadow: 0px 8px 40px 0px rgba(3, 80, 95, 0.25);
+}
+
+.text-primary-custom {
+    color: var(--primary, #257180) !important;
+}
+
+.text-secondary-custom {
+    color: var(--secondary, #f2e5bf) !important;
+}
+
+.btn-cs {
+    background: var(--secondary, #f2e5bf) !important;
+    border-radius: 20px;
+    display: flex;
+    padding: var(--Space-200, 8px) 20px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--Space-200, 8px);
+}
+
+.content {
+    padding: 20px;
+    text-align: center;
+}
+
+.content .title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.content .title-container h1 {
+    color: var(--primary, #257180);
+    text-align: center;
+    font-size: 52px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.content .title-container .level {
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    border-radius: 32px;
+    background: var(--primary, #257180);
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.content .story {
+    display: flex;
+    width: 100%;
+    height: 252px;
+    padding: 36px 60px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 60px;
+    background: var(--secondary, #F2E5BF);
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.25);
+}
+
+.content .story>p {
+    color: var(--primary, #257180);
+    text-align: justify;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.content .question-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.content .question {
+    color: var(--primary, #257180);
+    text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.content .answer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.content .button-key {
+    display: inline-flex;
+    padding: 10px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 32px;
+    border: none;
+    background: var(--btn-gradient, linear-gradient(90deg, #BEF4FF 0%, #F2E5BF 28.58%, #BEF4FF 70%, #F2E5BF 100%));
+}
+
+.content .button-key p {
+    color: var(--primary, #257180);
+    text-align: justify;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.content .answer input {
+    display: flex;
+    width: 100%;
+    height: 80px;
+    padding: 25px 60px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 60px;
+    border: none;
+    background: #FFF7DF;
+    box-shadow: 0px 2px 12px 0px rgba(0, 0, 0, 0.25) inset; color: rgba(0, 0, 0, 0.8);
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.content .answer input::placeholder {
+    color: rgba(184, 184, 184, 0.80);
+    text-align: justify;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.content .answer button {
+    background-color: #004d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.content .answer button i {
+    margin-right: 5px;
+}
+
+.content .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.content .tags .tag {
+    background-color: #004d4d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 18px;
+}
+
+/* Tambahkan media query untuk layar kecil */
+@media screen and (max-width: 768px) {
+    body {
+        padding-top: 80px;
+    }
+
+    .content .title-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .content .title-container h1 {
+        font-size: 32px;
+    }
+
+    .content .title-container .level {
+        position: static;
+        margin-bottom: 10px;
+    }
+
+    .content .story {
+        height: auto;
+        padding: 20px;
+        border-radius: 30px;
+    }
+
+    .content .story > p {
+        font-size: 16px;
+    }
+
+    .content .question {
+        font-size: 24px;
+    }
+
+    .content .button-key {
+        padding: 8px 16px;
+    }
+
+    .content .button-key p {
+        font-size: 16px;
+    }
+
+    .content .answer input {
+        height: 60px;
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+
+    .content .answer input::placeholder {
+        font-size: 16px;
+    }
+
+    .content .tags .tag {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+/* Tambahkan media query untuk layar sangat kecil */
+@media screen and (max-width: 480px) {
+    .content .title-container h1 {
+        font-size: 28px;
+    }
+
+    .content .story > p {
+        font-size: 14px;
+    }
+
+    .content .question {
+        font-size: 20px;
+    }
+
+    .content .button-key p {
+        font-size: 14px;
+    }
+
+    .content .answer input {
+        font-size: 14px;
+    }
+
+    .content .answer input::placeholder {
+        font-size: 14px;
+    }
+
+    .content .tags .tag {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Media query untuk tablet atau layar medium */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    body {
+        padding-top: 90px;
+    }
+
+    .content .title-container h1 {
+        font-size: 42px;
+    }
+
+    .content .title-container .level {
+        font-size: 18px;
+        padding: 8px 16px;
+    }
+
+    .content .story {
+        padding: 30px 40px;
+        height: auto;
+    }
+
+    .content .story > p {
+        font-size: 18px;
+    }
+
+    .content .question {
+        font-size: 28px;
+    }
+
+    .content .button-key {
+        padding: 10px 18px;
+    }
+
+    .content .button-key p {
+        font-size: 18px;
+    }
+
+    .content .answer input {
+        height: 70px;
+        padding: 20px 40px;
+        font-size: 18px;
+    }
+
+    .content .answer input::placeholder {
+        font-size: 18px;
+    }
+
+    .content .tags .tag {
+        padding: 8px 18px;
+        font-size: 16px;
+    }
+
+    .content .answer button {
+        padding: 12px 24px;
+        font-size: 18px;
+    }
+}
+
+/* Penyesuaian untuk layar sekitar 912px */
+@media screen and (min-width: 900px) and (max-width: 950px) {
+    .content .title-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content .title-container .level {
+        margin-top: 10px;
+    }
+
+    .content .story {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .content .question-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .content .answer {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .content .tags {
+        width: 90%;
+        margin: 20px auto;
+    }
+}
+
+/* Tambahkan media query untuk layar sangat kecil */
+@media screen and (max-width: 480px) {
+    .content .title-container h1 {
+        font-size: 28px;
+    }
+
+    .content .story > p {
+        font-size: 14px;
+    }
+
+    .content .question {
+        font-size: 20px;
+    }
+
+    .content .button-key p {
+        font-size: 14px;
+    }
+
+    .content .answer input {
+        font-size: 14px;
+    }
+
+    .content .answer input::placeholder {
+        font-size: 14px;
+    }
+
+    .content .tags .tag {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+.tag {
+    cursor: grab; /* Shows the "grab" cursor when hovering over tags */
+}
+
+.tag:active {
+    cursor: grabbing; /* Shows the "grabbing" cursor when the tag is being dragged */
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shake {
+    animation: shake 0.5s;
+    animation-iteration-count: 1;
+}
