@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/form.css">
+    <script src="jquery-3.7.1.min.js"></script>
+    <title>Form dengan Character Counter dan Validasi Password</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <!--Login-->
+                <form id="form-login" action="index.html" class="sign-in-form" onsubmit="return validateLoginPassword()">
+                    <h2 class="title">Sign in</h2>
+                    <div class="input-field">
+                        <i class="bi bi-person-fill"></i>
+                        <input type="email" id="login-email" maxlength="30" placeholder="Email" required>
+                        <p id="login-email-counter">0/30</p>
+                    </div>
+                    <div class="input-field">
+                        <i class="bi bi-lock-fill"></i>
+                        <input type="password" id="login-password" maxlength="10" placeholder="Password" required>
+                        <p id="login-password-counter">0/10 </p>
+                    </div>
+                    <input type="submit" value="Login" class="btn solid">
+                </form>
+                <!--Register-->
+                <form id="form-signup" action="index.html" class="sign-up-form" onsubmit="return validatePassword()">
+                    <h2 class="title">Sign up</h2>
+                    <div class="input-field">
+                        <i class="bi bi-person-fill"></i>
+                        <input type="text" id="username" maxlength="20" placeholder="Username" required>
+                        <p id="username-counter">0/20</p>
+                    </div>
+                    <div class="input-field">
+                        <i class="bi bi-envelope-fill"></i>
+                        <input type="email" id="email-signup" maxlength="30" placeholder="Email" required>
+                        <p id="email-signup-counter">0/30</p>
+                    </div>
+                    <div class="input-field">
+                        <i class="bi bi-lock-fill"></i>
+                        <input type="password" id="password-signup" maxlength="10" placeholder="Password" required>
+                        <p id="password-signup-counter">0/10 </p>
+                    </div>
+                    <input type="submit" class="btn" value="Sign up">
+                </form>
+            </div>
+        </div>
+
+        <div class="panels-container">
+            <div class="panel left-panel">
+                <div class="content">
+                    <h3>Pengguna Baru?</h3>
+                    <p>Jika tidak punya akun, daftarkan akun kamu sekarang juga</p>
+                    <button class="btn transparent" id="sign-up-btn">Sign up</button>
+                </div>
+                <img src="Img/log.svg" class="image" alt="">
+            </div>
+            <div class="panel right-panel">
+                <div class="content">
+                    <h3>Sudah punya akun?</h3>
+                    <p>Kamu tidak perlu registrasi lagi, kembali ke halaman login</p>
+                    <button class="btn transparent" id="sign-in-btn">Sign in</button>
+                </div>
+                <img src="Img/register.svg" class="image" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script>
+    $(document).ready(function () {
+        // Function untuk memperbarui counter menggunakan jQuery
+        function updateCharacterCounter($inputElement, $counterElement, maxLength) {
+            $inputElement.on('input', function () {
+                const currentLength = $inputElement.val().length;
+                $counterElement.text(`${currentLength}/${maxLength} `);
+            });
+        }
+    
+        // Login form counters
+        const $emailLogin = $('#login-email');
+        const $passwordLogin = $('#login-password');
+        const $emailLoginCounter = $('#login-email-counter');
+        const $passwordLoginCounter = $('#login-password-counter');
+    
+        updateCharacterCounter($emailLogin, $emailLoginCounter, 30);
+        updateCharacterCounter($passwordLogin, $passwordLoginCounter, 10);
+    
+        // Sign-up form counters
+        const $usernameSignUp = $('#username');
+        const $emailSignUp = $('#email-signup');
+        const $passwordSignUp = $('#password-signup');
+        const $usernameSignUpCounter = $('#username-counter');
+        const $emailSignUpCounter = $('#email-signup-counter');
+        const $passwordSignUpCounter = $('#password-signup-counter');
+    
+        updateCharacterCounter($usernameSignUp, $usernameSignUpCounter, 20);
+        updateCharacterCounter($emailSignUp, $emailSignUpCounter, 30);
+        updateCharacterCounter($passwordSignUp, $passwordSignUpCounter, 10);
+    
+        // Validasi password untuk minimal 8 karakter (Sign-up)
+        function validatePassword() {
+            const password = $('#password-signup').val();
+            if (password.length < 8) {
+                alert('Password harus minimal 8 karakter!');
+                return false; // Mencegah pengiriman form jika password kurang dari 8 karakter
+            }
+            return true; // Mengizinkan pengiriman form jika password memenuhi syarat
+        }
+    
+        // Validasi password minimal 8 karakter (Login)
+        function validateLoginPassword() {
+            const password = $('#login-password').val();
+            if (password.length < 8) {
+                alert('Password login harus minimal 8 karakter!');
+                return false; // Mencegah pengiriman form jika password kurang dari 8 karakter
+            }
+            return true; // Mengizinkan pengiriman form jika password memenuhi syarat
+        }
+    
+        // jQuery untuk switch antara login dan sign-up
+        $('#sign-up-btn').on('click', function () {
+            $('.container').addClass('sign-up-mode');
+        });
+    
+        $('#sign-in-btn').on('click', function () {
+            $('.container').removeClass('sign-up-mode');
+        });
+    
+        // Handle form submission dengan validasi
+        $('#form-login').on('submit', function () {
+            return validateLoginPassword(); // Validasi password saat submit form login
+        });
+    
+        $('#form-signup').on('submit', function () {
+            return validatePassword(); // Validasi password saat submit form signup
+        });
+    });
+    </script>
+</body>
+
+</html>
