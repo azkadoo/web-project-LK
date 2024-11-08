@@ -4,8 +4,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('home/', views.home, name='home'),  # URL path is now 'home/'
-    path('form/', views.form_name_view, name='form'),  # New path for the same view
+    path('home/', views.home, name='home'),
+    path('form/', views.form_name_view, name='form'),
+    path('subscribe/', views.subscribe, name='subscribe')
 ] 
 
 if settings.DEBUG:

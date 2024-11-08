@@ -20,3 +20,16 @@ class FormName(forms.Form):
   name = forms.CharField()
   email = forms.EmailField()
   text = forms.CharField(widget=forms.Textarea)
+
+class Customer(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
+class CustomerForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['first_name', 'last_name', 'email']

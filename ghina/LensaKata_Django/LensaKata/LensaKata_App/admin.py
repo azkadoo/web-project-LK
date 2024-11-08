@@ -4,3 +4,4 @@ from .models import *
 # Register your models here.
 admin.site.register(Member)
 admin.site.register(ReviewCard)
+admin.site.register(Customer)
