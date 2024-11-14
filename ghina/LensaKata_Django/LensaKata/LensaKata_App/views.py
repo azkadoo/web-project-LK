@@ -6,11 +6,20 @@ from .models import *
 # Create your views here.
 def home(request):
     reviews = ReviewCard.objects.all()
-    return render(request, 'home.html', {'reviews': reviews})
+    return render(request, 'home/home.html', {'reviews': reviews})
 
 def form_name_view(request):
     form = FormName()  # Notice: corrected without `forms.`
     return render(request, 'form_name.html', {'form': form})
+
+def login(request):
+    return render(request, 'login.html')
+
+def mabar(request):
+    return render(request, 'home/mabar.html')
+
+def game(request):
+    return render(request, 'home/game.html')
 
 def subscribe(request):
     if request.method == 'POST':
