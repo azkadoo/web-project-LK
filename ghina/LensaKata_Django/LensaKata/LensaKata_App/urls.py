@@ -6,10 +6,10 @@ from . import views
 urlpatterns = [
     path('home/', views.home, name='home'),  # URL path is now 'home/'
     path('form/', views.form_name_view, name='form'),  # New path for the same view
-    path('home/mabar/', views.mabar, name='mabar'),    
-    path('home/game/', views.game, name='game'),
-    path('subscribe/', views.subscribe, name='subscribe'),
-    path('login/', views.login, name='login')
+    path('mabar/', views.mabar, name='mabar'),    
+    path('game/', views.game, name='game'),
+    path('login/', views.login, name='login'),
+    path('subscribe/', views.subscribe, name='subscribe')
 ] 
 
 if settings.DEBUG:

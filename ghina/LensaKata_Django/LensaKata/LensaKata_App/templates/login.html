@@ -19,7 +19,7 @@
         <div class="forms-container">
             <div class="signin-signup">
                 <!--Login-->
-                <form id="form-login" action="{% url 'home.html'}" class="sign-in-form" onsubmit="return validateLoginPassword()">
+                <form id="form-login" action="{% url 'home' %}" class="sign-in-form" onsubmit="return validateLoginPassword()">
                     <h2 class="title">Sign in</h2>
                     <div class="input-field">
                         <i class="bi bi-person-fill"></i>
@@ -82,6 +82,6 @@
     {% bootstrap_javascript %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- External JS -->
-    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
