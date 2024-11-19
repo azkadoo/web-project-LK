@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game: Core Gameplay</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>{{ story.title }}</h1>
+    <p>{{ story.paragraph }}</p>
+
+    <form id="gameForm" method="POST">
+        {% csrf_token %}
+        <input type="text" name="user_input" placeholder="Enter your idea..." required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="feedback"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{% static 'js/game.js' %}"></script>
+</body>
+</html>
