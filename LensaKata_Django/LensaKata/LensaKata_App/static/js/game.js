@@ -1,57 +1,6 @@
-    // Timer 
-    let remainingTime = 60;
-    const levelText = $(".level").text();
 
-    const updateLevelText = () => {
-        $(".level").text(`${levelText} - Waktu Tersisa: ${remainingTime}s`);
-    };
-
-    updateLevelText();
-    
-    const intervalTimer = setInterval(() => {
-        if (remainingTime > 0) {
-            remainingTime--;
-            updateLevelText();
-        } else {
-            clearInterval(intervalTimer);
-            showTimeUpOverlay();
-        }
-    }, 1000);
-
-// Function to show the overlay when time is up
-function showTimeUpOverlay() {
-    // Create overlay div
-    const $overlay = $('<div></div>').css({
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-        color: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        zIndex: 1000
-    });
-
-    // Create message and button inside overlay
-    const $message = $('<h2>Waktu habis! Anda akan diarahkan ke beranda</h2>');
-    const $button = $('<button>OK</button>').css({
-        padding: '10px 20px',
-        fontSize: '16px',
-        marginTop: '20px'
-    }).on('click', function() {
-        window.location.href = "index.html"; // Redirect on button click
-    });
-
-    // Append message and button to overlay, and overlay to body
-    $overlay.append($message, $button);
-    $('body').append($overlay);
-}
-
-    // Definisikan jawaban yang benar
+    /*
+    // // Definisikan jawaban yang benar
     const correctAnswer = ['Jaka Tarub', 'mengambil', 'selendang'];
 
     // Event listener untuk tombol submit
@@ -100,4 +49,4 @@ function showTimeUpOverlay() {
 
         $this.detach().appendTo($tags);
         updateInputValue();
-    });
+    });*/

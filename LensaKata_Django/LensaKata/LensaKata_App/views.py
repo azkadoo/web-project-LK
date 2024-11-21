@@ -1,16 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from .models import *
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.views import View
 
 # Create your views here.
+
 def home(request):
     reviews = ReviewCard.objects.all()
     return render(request, 'home/home.html', {'reviews': reviews})
-
-def form_name_view(request):
-    form = FormName()  # Notice: corrected without `forms.`
-    return render(request, 'form_name.html', {'form': form})
 
 def login(request):
     return render(request, 'login.html')
@@ -18,17 +19,17 @@ def login(request):
 def mabar(request):
     return render(request, 'home/mabar.html')
 
-def game(request):
+#def game(request):
     return render(request, 'home/game.html')
 
-def subscribe(request):
-    if request.method == 'POST':
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            success_message = "Terima kasih telah berlangganan!"
-            return render(request, 'subscribe.html', {'form': form, 'success_message': success_message})
-    else:
-        form = CustomerForm()
+class GameView(View):
+    def get(self, request, pk):
+        story = Story.objects.get(pk=pk)
+        return render(request, 'game/game.html', {'story': story})
 
-    return render(request, 'subscribe.html', {'form': form})
+    def post(self, request, pk):
+        story = Story.objects.get(pk=pk)
+        user_answer = request.POST.get('user_answer', '').lower()
+        valid_answers = [ans.lower() for ans in story.get_answers()]
+        is_correct = any(ans in user_answer for ans in valid_answers)
+        return render(request, 'game/result.html', {'story': story, 'is_correct': is_correct})
