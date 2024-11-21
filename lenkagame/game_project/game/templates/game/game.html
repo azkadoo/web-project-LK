@@ -1,0 +1,22 @@
+{% extends 'game/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ story.title }}</h1>
+    <p>{{ story.content }}</p>
+    <h3>{{ story.question }}</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="user_answer" placeholder="Jawabanmu...">
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+        <h4>Kata Bantuan:</h4>
+        <ul>
+            {% for tag in story.get_tags %}
+                <li>{{ tag }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

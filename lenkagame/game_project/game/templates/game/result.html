@@ -1,0 +1,13 @@
+{% extends 'game/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ story.title }}</h1>
+    {% if is_correct %}
+        <p style="color: green;">Jawabanmu benar!</p>
+    {% else %}
+        <p style="color: red;">Jawabanmu salah. Jawaban yang benar adalah salah satu dari: {{ story.get_answers|join:", " }}</p>
+    {% endif %}
+    <a href="{% url 'game' story.id %}">Main Lagi</a>
+</div>
+{% endblock %}
