@@ -24,7 +24,8 @@ from LensaKata_App import views
 urlpatterns = [
     path('LensaKata_App/', include('LensaKata_App.urls')),  # URL path would be '/LensaKata_App/home/'
     path("accounts/", include("django.contrib.auth.urls")),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path("", views.home, name="home")
 ]
 
 if settings.DEBUG:
