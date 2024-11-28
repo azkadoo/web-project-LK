@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{% static 'image/logo-4-blue.svg' %}" type="image/x-icon" />
+    <title>Beranda</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/startgame.css'%}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg mb-5 py-2 fixed-top nav-custom">
+            <div class="container-fluid">
+                <img src="{%static 'images/logo-4-ori.png' %}" alt="Logo" width="40"
+                    class="d-inline-block align-text-center me-2" />
+                <a href="index.html" style="text-decoration: none">
+                    <h3 class="text-secondary-custom">LensaKata</h3>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-2 fw-medium">
+                        <li class="nav-item mx-1">
+                            <a class="nav-link active text-secondary-custom" aria-current="page" href="{% url 'index' %}">Beranda</a>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-secondary-custom" href="{% url 'tentangkami' %}">Tentang Kami</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-secondary-custom" href="#" role="button" data-bs-toggle="dropdown"
+                              aria-expanded="false">
+                              Main
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li>
+                                <a class="dropdown-item" href="{% url 'game' %}">Petualangan Kata</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{% url 'pulau_kata' %}">Pulau Kata</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{% url 'sambung_kata' %}">Sambung Kata</a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="{% url 'sinonim_antonim' %}">Sinonim Antonim</a>
+                              </li>
+                            </ul>
+                          </li>
+                        <li class="nav-item mx-1">
+                            <a class="nav-link text-secondary-custom" href="{% url 'loginn' %}">Masuk</a>
+                        </li>
+                        <li class="nav-item mx-1 text-center">
+                            <a class="nav-link text btn btn-cs btn-outline-success px-4" href="#">Langganan</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="d-flex align-items-center">
+            <div class="container pt-3 pb-5">
+                <h2 class="d-flex justify-content-center mb-4 " style="color: #f2e5bf;">Pilih Game yang akan dimainkan</h2>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="card" style="width:250px">
+                            <img class="card-img-bottom" src="{% static 'images/img-game-1.png' %}" alt="Card image"
+                                style="width:100%" height="230">
+                            <div class="card-body">
+                                <h4 class="card-title">Petualangan Kata</h4>
+                                <p class="card-text">Permainan Petualangan kata</p>
+                                <a href="{% url 'game' %}" class="btn btn-primary" style="background-color: #257180; ">Main
+                                    Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width:250px">
+                            <img class="card-img-bottom" src="{% static 'images/img-game-2.png' %}" alt="Card image" style="width:100%" height="230">
+                            <div class="card-body">
+                                <h4 class="card-title">Pulau Kata</h4>
+                                <p class="card-text">Permainan mengarang kata
+                                </p>
+                                <a href="{% url 'pulau_kata' %}" class="btn btn-primary" style="background-color: #257180; ">Main
+                                    Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width:250px">
+                            <img class="card-img-bottom" src="{% static 'images/img-game-3.png' %}" alt="Card image"
+                                style="width:100%" height="230">
+                            <div class="card-body">
+                                <h4 class="card-title">Sambung Kata</h4>
+                                <p class="card-text">Permainan sambung kata
+                                </p>
+                                <a href="{% url 'sambung_kata' %}" class="btn btn-primary" style="background-color: #257180; ">Main
+                                    Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="card" style="width:250px">
+                            <img class="card-img-bottom" src="{% static 'images/img-game-4.png' %}" alt="Card image"
+                                style="width:100%" height="230">
+                            <div class="card-body">
+                                <h4 class="card-title">Sinonim Antonim</h4>
+                                <p class="card-text">Permainan Sinonim/Antonim
+                                </p>
+                                <a href="{% url 'sinonim_antonim' %}" class="btn btn-primary" style="background-color: #257180; ">Main
+                                    Sekarang</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <article class="container">
+            <h1 class="m-5 text-primary-custom text-center">Didukung oleh</h1>
+            <div class="row justify-content-center">
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/kemendikbud.png' %}" width="80" height="80">
+                    <p class="fs-6 fw-bold text-primary-custom">Kemendikbud</p>
+                </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/logo-msib.png' %}" width="100" height="80">
+                    <p class="fs-6 fw-bold text-primary-custom">MSIB</p>
+                </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/image 21.png' %}" width="130" height="80">
+                    <p class="fs-6 fw-bold text-primary-custom">Educourse</p>
+                </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/image-22.png' %}" width="80" height="80">
+                    <p class="fs-6 fw-bold text-primary-custom">Gramedia</p>
+                </div>
+            </div>
+        </article>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <h5>Kontak Kami</h5>
+            <p>Email: lensakata@gmail.com</p>
+            <p>Alamat: 1234 street </p>
+        </div>
+        <div class="footer-game">
+            <h5>Permainan</h5>
+            <a href="{% url 'game' %}">Mengarang</a>
+            <a href="{% url 'pulau_kata' %}">Baca Cerita</a>
+            <a href="{% url 'sambung_kata' %}">Sambung Kata</a>
+            <a href="{% url 'sinonim_antonim' %}">Sinonim Antonim</a>
+        </div>
+        <div class="footer-links">
+            <h5>Tautan cepat</h5>
+            <a href="{% url 'index' %}">Beranda</a>
+            <a href="{% url 'tentangkami' %}">Tentang Kami</a>
+            <a href="{% url 'startgame' %}">Permainan</a>
+        </div>
+        <div class="social-media">
+            <h5>Ikuti Kami</h5>
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-tiktok"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+        </div>
+        <div class="hak-cipta">
+            <h5>Hak Cipta</h5>
+            <p>© 2024 LensaKata | Hak Cipta Dilindungi</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- External JS -->
+</body>
+
+</html>

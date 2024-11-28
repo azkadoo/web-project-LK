@@ -419,6 +419,7 @@ article:first-of-type {
 
 .card {
   margin: 0 10px;
+
   /* Memberikan jarak antara setiap card */
 }
 
@@ -474,6 +475,7 @@ article:first-of-type {
   padding: 1rem 0;
   margin-bottom: 20px;
   overflow-x: auto;
+  margin : 1px;
   /* Aktifkan scrollbar horizontal */
 }
 
@@ -482,12 +484,11 @@ article:first-of-type {
   scroll-behavior: smooth;
   padding-bottom: 20px;
 }
-
 .review-card {
   flex: 0 0 auto;
   width: 250px;
   /* Atau ukuran yang Anda inginkan */
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .review-card .card {
@@ -851,5 +852,4 @@ footer {
   color: var(--text-color);
   border-color: var(--text-color);
 }
-
 

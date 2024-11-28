@@ -26,3 +26,9 @@ def login(request):
 
 def mabar(request):
     return render(request,'lensakata_app/mabar.html')
+
+def tentangkami(request):
+    return render(request,'lensakata_app/tentangkami.html')
+
+def startgame(request):
+    return render(request,'lensakata_app/startgame.html')
