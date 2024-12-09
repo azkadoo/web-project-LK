@@ -33,7 +33,9 @@
             <!-- Settings dan Keluar -->
             <div class="col-auto shadow-lg rounded-pill mb-3 px-3 py-2 d-flex align-items-center" style="background-color: #f2e5bf;">
                 <img src="{% static 'Img/settings.png' %}" alt="Settings" class="me-2" width="30">
-                <img src="{% static 'Img/logout.png' %}" alt="Logout" width="30">
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'Img/logout.png' %}" alt="Logout" width="30">
+                </a>                
             </div>
         </div>
     </div>

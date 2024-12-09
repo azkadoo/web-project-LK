@@ -2,12 +2,6 @@ from django.db import models
 from django import forms
 
 # Create your models here.
-class Member(models.Model):
-  firstname = models.CharField(max_length=255)
-  lastname = models.CharField(max_length=255)
-  phone = models.IntegerField(null=True)
-  joined_date = models.DateField(null=True)
-
 class ReviewCard(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='review_images/')
@@ -16,20 +10,22 @@ class ReviewCard(models.Model):
     def __str__(self):
         return self.name
 
-class FormName(forms.Form):
-  name = forms.CharField()
-  email = forms.EmailField()
-  text = forms.CharField(widget=forms.Textarea)
+class Story(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    question = models.CharField(max_length=300)
+    answer = models.TextField(
+        help_text="Pisahkan jawaban dengan koma, contoh: bidadari,telaga,Jaka Tarub")
+    tags = models.TextField(
+        help_text="Pisahkan tag dengan koma, contoh: langit,menangis,telaga")
 
-class Customer(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    email = models.EmailField()
+    def get_answers(self):
+        """Mengubah kolom `answer` menjadi list."""
+        return self.answer.split(',')
+
+    def get_tags(self):
+        """Mengubah kolom `tags` menjadi list."""
+        return self.tags.split(',')
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-class CustomerForm(forms.ModelForm):
-    class Meta:
-        model = Customer
-        fields = ['first_name', 'last_name', 'email']
+        return self.title
