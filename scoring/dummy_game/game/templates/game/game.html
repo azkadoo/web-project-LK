@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Game</title>
+</head>
+<body>
+    <h1>{{ story.title }}</h1>
+    <p>{{ story.content }}</p>
+    <p>{{ story.question }}</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="answer">Your Answer:</label>
+        <input type="text" id="answer" name="user_answer">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

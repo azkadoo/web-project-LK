@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <h1>Welcome to the Game</h1>
+    <p>Select a story to start the game:</p>
+    <ul>
+        {% for story in stories %}
+            <li><a href="/game/{{ story.id }}/">{{ story.title }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

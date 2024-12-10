@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Result</title>
+</head>
+<body>
+    <h1>Game Result</h1>
+    <p><strong>Story:</strong> {{ story.title }}</p>
+    <p><strong>Your Answer:</strong> {{ user_answer }}</p>
+    <p><strong>Feedback:</strong> {{ feedback }}</p>
+    <p><strong>Score:</strong> {{ score }}</p>
+    <a href="/game/{{ story.id }}">Try Again</a>
+</body>
+</html>
