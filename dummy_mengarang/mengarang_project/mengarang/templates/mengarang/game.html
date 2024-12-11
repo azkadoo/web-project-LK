@@ -1,0 +1,8 @@
+<!-- mengarang/templates/mengarang/game.html -->
+
+<h2>Tulis Ceritamu!</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Kirim Cerita</button>
+</form>
