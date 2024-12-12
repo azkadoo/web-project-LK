@@ -52,12 +52,36 @@
                                 </li>
                             </ul>
                         </li>
+                        {% if user.is_authenticated %}
+                        <!-- Jika pengguna login -->
+                        <li class="nav-item mx-1 dropdown">
+                            <a class="nav-link dropdown-toggle text-secondary-custom" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a> 
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <!-- Jika pengguna belum login -->
                         <li class="nav-item mx-1">
                             <a class="nav-link text-secondary-custom" href="{% url 'account_login' %}">Masuk</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item mx-1 text-center">
+                            {% if user.is_authenticated %}
                             <a class="nav-link text-primary-custom btn btn-cs btn-outline-success px-4"
                                 href="#">Langganan</a>
+                            {% else %}
+                            <a class="nav-link text-primary-custom btn btn-cs btn-outline-success px-4"
+                                href="{% url 'account_signup' %}">Registrasi</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>
