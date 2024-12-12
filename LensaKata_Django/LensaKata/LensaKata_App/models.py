@@ -6,11 +6,6 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import *
 
-@receiver(post_save, sender=User)
-def create_user_statistics(sender, instance, created, **kwargs):
-    if created:
-        UserStatistics.objects.create(user=instance)
-
 # Create your models here.
 class ReviewCard(models.Model):
     name = models.CharField(max_length=100)
