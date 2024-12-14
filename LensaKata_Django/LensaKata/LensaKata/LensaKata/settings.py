@@ -179,3 +179,9 @@ LOGIN_REDIRECT_URL = "/dashboard/"
 LOGOUT_REDIRECT_URL = "/accounts/"
 
 LEVEL_THRESHOLDS = [500, 1000, 1500, 2000] 
+
+MIDTRANS_SERVER_KEY = 'SB-Mid-server-Mxz9ZL7QR4fqNhLDEcWvijp_'
+MIDTRANS_CLIENT_KEY = 'SB-Mid-client-7oCZYtQWDXcOHAyA'
+
+TIME_ZONE = 'Asia/Jakarta'  # Sesuaikan dengan zona waktu Anda
+USE_TZ = True

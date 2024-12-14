@@ -39,7 +39,13 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="{% url 'game' pk=1 %}">Petualangan Kata</a>
+                                    <a class="dropdown-item" href="{% url 'game' pk=1 %}">Baca Cerita</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'mengarang' %}">Mengarang</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'spok_game' %}">Petualangan Kata</a>
                                 </li>
                             </ul>
                         </li>
@@ -60,16 +66,16 @@
                             </ul>
                         </li>
                         {% else %}
-                       <!-- Jika pengguna belum login -->
+                        <!-- Jika pengguna belum login -->
                         <li class="nav-item mx-1">
                             <a class="nav-link text-secondary-custom" href="{% url 'account_login' %}">Masuk</a>
                         </li>
                         {% endif %}
                         <li class="nav-item mx-1 text-center">
                             {% if user.is_authenticated %}
-
                             <a class="nav-link text-primary-custom btn btn-cs btn-outline-success px-4"
-                                href="{% url 'langganan_home' %}">Langganan</a>
+                                href="{% url 'subscription' %}">Langganan</a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>

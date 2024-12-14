@@ -37,7 +37,7 @@ class Story(models.Model):
 
     def get_keywords(self):
         """Mengubah kolom `tags` menjadi list kata kunci."""
-        return [tag.strip().lower() for tag in self.tags.split(',')]
+        return [tag.strip() for tag in self.tags.split(',')]
 
     def __str__(self):
         return self.title
@@ -98,3 +98,45 @@ class StoryRating(models.Model):
 
     def __str__(self):
         return f"{self.user.username} rated {self.game_challenge.content} - {self.rating} Stars"
+
+class SPOKChallenge(models.Model):
+    sentence = models.CharField(max_length=255, help_text="Masukkan kalimat lengkap untuk tantangan")
+    subject = models.CharField(max_length=100, help_text="Jawaban untuk Subjek")
+    predicate = models.CharField(max_length=100, help_text="Jawaban untuk Predikat")
+    object = models.CharField(max_length=100, help_text="Jawaban untuk Objek")
+    description = models.CharField(max_length=100, help_text="Jawaban untuk Keterangan")
+
+    def __str__(self):
+        return f"Tantangan: {self.sentence}"
+
+class SPOKSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    challenge = models.ForeignKey(SPOKChallenge, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Sesi {self.user.username} - Tantangan: {self.challenge.sentence}"
+
+class Subscription(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False)
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+
+    def activate_subscription(self, months):
+        """Aktifkan langganan untuk durasi tertentu."""
+        now = timezone.now()
+        self.is_active = True
+        self.start_date = now
+        self.end_date = now + timedelta(days=30 * months)  # Durasi 30 hari per bulan
+        self.save()
+
+    def is_subscription_valid(self):
+        """Cek apakah langganan masih aktif dan belum kedaluwarsa."""
+        if self.is_active and self.end_date:
+            return self.end_date > timezone.now()
+        return False
+
+    def __str__(self):
+        return f"{self.user.username} - Aktif: {self.is_active}"

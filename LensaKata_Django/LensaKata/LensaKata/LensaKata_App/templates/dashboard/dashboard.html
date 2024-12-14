@@ -122,18 +122,18 @@
               <div class="card-body">
                   <div class="row">
                       <!-- Game 1 -->
-                      <div class="col-md-6 game-item">
+                      <div class="col-md-4 game-item">
                           <div class="game-info">
                               <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 1 icon" height="80" width="80">
-                              <h4>Petualangan Kata</h4>
-                              <p>Temukan & susun kata yang hilang!</p>
+                              <h4>Baca Cerita</h4>
+                              <p>Temukan kata yang hilang!</p>
                               <a href="/game/1/">
                                   <button class="btn btn-primary">MAIN</button>
                               </a>
                           </div>
                       </div>
                       <!-- Game 2 -->
-                      <div class="col-md-6 game-item">
+                      <div class="col-md-4 game-item">
                           <div class="game-info">
                               <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 2 icon" height="80" width="80">
                               <h4>Mengarang</h4>
@@ -143,42 +143,22 @@
                               </a>
                           </div>
                       </div>
+                      <!-- Game 3 -->
+                      <div class="col-md-4 game-item">
+                        <div class="game-info">
+                            <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 2 icon" height="80" width="80">
+                            <h4>SPOK</h4>
+                            <p>Susun kata dengan benar!</p>
+                            <a href="{% url 'spok_game' %}">
+                                <button class="btn btn-primary">MAIN</button>
+                            </a>
+                        </div>
+                    </div>
                   </div>
               </div>
           </div>
       </div>
-
-<!-- Leaderboard Section -->
-<div class="col-md-6">
-    <div class="card">
-        <div class="card-header">
-            <i class="fas fa-trophy text-success"></i> LEADERBOARD
-        </div>
-        <div class="card-body-leaderboard">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Username</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in leaderboard_data %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>  <!-- This will display the rank -->
-                            <td>{{ user.username }}</td>
-                            <td>{{ total_score }}</td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="3" class="text-center">Tidak ada data pengguna.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+</div>
 </div>
 </div>
 </main>
@@ -187,52 +167,6 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-QF1F4mr5i8dy4EnOYvsjxn6v74anKzR7hrjo+zJlPzK3fLgbsMg0iSmD7l8j5Mg6" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-xzdy7mlYPkmZTxwHpt1ZZowcIipF54bm/+6jfgTbRsIWTCpHK9c5WErD6ttCWHwc" crossorigin="anonymous"></script>  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-<script>
-function submitRating(challengeId) {
-    const rating = document.querySelector(`input[name="rating-${challengeId}"]:checked`);
-    if (rating) {
-        const ratingValue = rating.value;
-
-        // Kirim rating ke server menggunakan fetch API
-        fetch(`/rate_challenge/${challengeId}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}',  // Pastikan CSRF token disertakan
-            },
-            body: JSON.stringify({ rating: ratingValue })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert(data.message);  // Tampilkan pesan sukses
-                // Anda bisa menambahkan logika untuk memperbarui tampilan jika diperlukan
-            } else {
-                alert('Gagal mengirim rating.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat mengirim rating.');
-        });
-    } else {
-        alert('Silakan pilih rating sebelum mengirim.');
-    }
-}
-</script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggleBtn = document.querySelector('.toggle-btn');
-      const sidebar = document.querySelector('.sidebar');
-      const content = document.querySelector('.content');
-
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        content.classList.toggle('shifted');
-      });
-    });
-  </script>
 
   <!-- Search Filter Script -->
   <script>

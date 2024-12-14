@@ -13,7 +13,9 @@ from django.views import View
 from .forms import *
 import requests
 import json
-
+from .services.midtrans_service import create_payment_transaction
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 from .models import *
 from .utils import get_user_level
 
@@ -62,36 +64,43 @@ def login_view(request):
 def dashboard(request):
     # Retrieve or create the user_progress instance first
     user_progress, created = UserProgress.objects.get_or_create(user=request.user)
+    
+    latest_scores = GameSession.objects.filter(user=OuterRef('pk')).order_by('-created_at').values('score')[:1]
+    all_users = User.objects.annotate(
+        total_score=Sum('gamesession__score') + Sum('gamechallenge__score'),
+        latest_score=Subquery(latest_scores)  # Ambil score dari sesi terakhir
+    )
     # Instead of incrementing, directly assign the count of completed challenges
     # Save the updated progress
     game_challenges = GameChallenge.objects.exclude(user=request.user)  # Ambil tantangan yang bukan milik pengguna saat ini
     
-    leaderboard_data = User.objects.annotate(
-        total_score=Sum('gamesession__score')
-    ).filter(total_score__gt=0).order_by('-total_score')[:10]
+    user_sessions = SPOKSession.objects.filter(user=request.user).order_by('-created_at')
 
     # Retrieve stories and latest game session
     stories = Story.objects.all()
     latest_game_challenge = GameChallenge.objects.filter(user=request.user).order_by('-created_at').first()
     latest_game_session = GameSession.objects.filter(user=request.user).order_by('-created_at').first()
-    
+    latest_spok_session = SPOKSession.objects.filter(user=request.user).order_by('-created_at').first()
+
+    latest_score = 0  # Default value
+
     # Tentukan latest_score berdasarkan game yang lebih baru
-    if latest_game_challenge and latest_game_session:
-        latest_score = (
-            latest_game_challenge.score
-            if latest_game_challenge.created_at > latest_game_session.created_at
-            else latest_game_session.score
-        )
-    elif latest_game_challenge:
-        latest_score = latest_game_challenge.score
-    elif latest_game_session:
-        latest_score = latest_game_session.score
-    else:
-        latest_score = 0
+    if latest_game_challenge or latest_game_session or latest_spok_session:
+        if latest_game_challenge and (not latest_game_session or latest_game_challenge.created_at > latest_game_session.created_at) and (not latest_spok_session or latest_game_challenge.created_at > latest_spok_session.created_at):
+            latest_score = latest_game_challenge.score
+        elif latest_game_session and (not latest_game_challenge or latest_game_session.created_at > latest_game_challenge.created_at) and (not latest_spok_session or latest_game_session.created_at > latest_spok_session.created_at):
+            latest_score = latest_game_session.score
+        elif latest_spok_session and (not latest_game_challenge or latest_spok_session.created_at > latest_game_challenge.created_at) and (not latest_game_session or latest_spok_session.created_at > latest_game_session.created_at):
+            latest_score = latest_spok_session.score
+
+    # Update latest_challenges_count
+    user_progress.latest_challenges_count = user_progress.challenges_completed
+    user_progress.save()
 
     # Calculate total scores
     total_score = GameSession.objects.filter(user=request.user).aggregate(Sum('score'))['score__sum'] or 0
     total_mengarang_score = GameChallenge.objects.filter(user=request.user).aggregate(Sum('score'))['score__sum'] or 0
+    total_spok_score = SPOKSession.objects.filter(user=request.user).aggregate(Sum('score'))['score__sum'] or 0
 
     # Update user progress
     user_progress.daily_score = total_score + total_mengarang_score  # Set daily_score to the total mengarang score
@@ -135,19 +144,20 @@ def dashboard(request):
     return render(request, 'dashboard/dashboard.html', {
         'user': request.user,
         'stories': stories,
-        'leaderboard_data': leaderboard_data,
         'user_progress': user_progress,
         'latest_game_session': latest_game_session,
         'game_challenges': game_challenges,
-        'total_score': total_score + total_mengarang_score,  # Total skor
+        'total_score': total_score + total_mengarang_score + total_spok_score,  # Total skor
         'total_challenges_completed': user_progress.challenges_completed,
         'total_words_learned': total_words_learned,
         'latest_score': latest_score,
+        'latest_spok_session': latest_spok_session,
         'latest_challenges_count': latest_challenges_count,
         'latest_new_words_count': latest_new_words_count,
         'latest_matched_count': latest_matched_count,
         'user_level': user_level,
         'progress': progress,
+        'sessions': user_sessions,
     })
 
 def home(request):
@@ -241,6 +251,7 @@ def mengarang_view(request):
             # Update user_progress dengan skor game mengarang
             user_progress, created = UserProgress.objects.get_or_create(user=request.user)
             user_progress.daily_score += game_challenge.score  # Menambahkan skor game mengarang
+            user_progress.challenges_completed += 1
             user_progress.daily_challenges_completed += 1
             user_progress.save()  # Simpan perubahan
 
@@ -258,48 +269,221 @@ def mengarang_result_view(request, pk):
     game_challenge = GameChallenge.objects.get(pk=pk)
     return render(request, 'mengarang/result.html', {'game_challenge': game_challenge})
 
-def leaderboard(request):
-    leaderboard_data = User.objects.annotate(
-        total_score=Sum('gamesession__score')
-    ).filter(total_score__gt=0).order_by('-total_score')[:10]
+from django.db.models import Sum, OuterRef, Subquery
 
-    # Ambil rata-rata rating untuk setiap GameChallenge
-    game_challenge_ratings = GameChallenge.objects.annotate(
-        average_rating=Avg('storyrating__rating')
-    ).order_by('-average_rating')[:10]  # Ambil 10 tantangan teratas berdasarkan rating
+@login_required
+def spok_game(request):
+    # Check if a challenge is already stored in the session
+    if 'current_challenge_id' not in request.session:
+        # Fetch a random challenge
+        challenge = SPOKChallenge.objects.order_by('?').first()  # Get a random challenge
+        request.session['current_challenge_id'] = challenge.id  # Store the challenge ID in the session
+    else:
+        # Retrieve the challenge from the session
+        challenge_id = request.session['current_challenge_id']
+        challenge = SPOKChallenge.objects.get(id=challenge_id)
 
-    return render(request, 'dashboard/leaderboard.html', {
-        'leaderboard_data': leaderboard_data,
-        'game_challenge_ratings': game_challenge_ratings,
+    form = SPOKForm()
+
+    if request.method == "POST":
+        form = SPOKForm(request.POST)
+        if form.is_valid():
+            answers = {
+                'subject': form.cleaned_data['subject'],
+                'predicate': form.cleaned_data['predicate'],
+                'object': form.cleaned_data['object'],
+                'description': form.cleaned_data.get('description', '')
+            }
+            correct_answers = {
+                'subject': challenge.subject,
+                'predicate': challenge.predicate,
+                'object': challenge.object,
+                'description': challenge.description
+            }
+
+            # Calculate score
+            score = 0
+            for key in answers:
+                print(f"Checking {key}: User answer = {answers[key]}, Correct answer = {correct_answers[key]}")
+                if answers[key].lower() == correct_answers[key].lower():
+                    score += 5
+                    print(f"Correct! Score is now: {score}")
+                else:
+                    print("Incorrect answer.")
+
+            # Simpan sesi permainan
+            session = SPOKSession.objects.create(
+                user=request.user,
+                challenge=challenge,
+                score=score
+            )
+
+            # Update UserProgress
+            user_progress, created = UserProgress.objects.get_or_create(user=request.user)
+            user_progress.daily_score += score  # Tambahkan skor ke daily_score
+            user_progress.challenges_completed += 1  # Tambahkan 1 ke total challenges completed
+            user_progress.daily_challenges_completed += 1  # Tambahkan 1 ke daily challenges completed
+            user_progress.save()  # Simpan perubahan
+
+            return redirect('spok_result', session_id=session.id)
+
+    return render(request, 'spok/spok_game.html', {
+        'challenge': challenge,
+        'form': form
     })
 
 @login_required
-def game_challenge_dashboard(request):
-    # Ambil semua GameChallenge yang dibuat oleh pengguna lain
-    game_challenges = GameChallenge.objects.exclude(user=request.user)  # Ambil tantangan yang bukan milik pengguna saat ini
-
-    # Ambil rating untuk setiap GameChallenge
-    game_challenge_ratings = {
-        challenge.id: StoryRating.objects.filter(game_challenge=challenge).aggregate(average_rating=Avg('rating'))['average_rating']
-        for challenge in game_challenges
-    }
-
-    return render(request, 'dashboard/dashboard.html', {
-        'game_challenges': game_challenges,
-        'game_challenge_ratings': game_challenge_ratings,
+def spok_result(request, session_id):
+    session = get_object_or_404(SPOKSession, id=session_id)
+    return render(request, 'spok/spok_result.html', {
+        'session': session
     })
 
+def subscription_page(request):
+    """
+    Halaman untuk memilih paket langganan dan memulai transaksi pembayaran.
+    """
+    if request.method == "POST":
+        try:
+            # Validasi apakah user sudah login
+            if not request.user.is_authenticated:
+                return JsonResponse({"error": "Anda harus login untuk melanjutkan."}, status=403)
+
+            # Ambil jumlah bulan yang dipilih dari form
+            months = int(request.POST.get('months'))
+            if months not in [1,2, 3, 6, 12]:
+                return JsonResponse({"error": "Durasi langganan tidak valid."}, status=400)
+
+            # Hitung total pembayaran berdasarkan jumlah bulan
+            amount = months * 100000  # 100.000 per bulan
+
+            # Buat ID unik untuk transaksi
+            order_id = f"{request.user.username}-{months}"
+            redirect_url = create_payment_transaction(order_id, amount)
+
+            # Simpan informasi transaksi sementara sebelum pembayaran selesai
+            subscription, _ = Subscription.objects.get_or_create(user=request.user)
+            subscription.is_active = False  # Belum aktif sampai pembayaran dikonfirmasi
+            subscription.start_date = None  # Reset jika sebelumnya ada
+            subscription.end_date = None
+            subscription.save()
+
+            # Berikan URL redirect untuk pembayaran
+            if redirect_url:
+                # Redirect langsung ke URL pembayaran
+                return HttpResponseRedirect(redirect_url)
+            else:
+                return JsonResponse({"error": "Transaksi gagal dibuat"})
+
+        except ValueError:
+            return JsonResponse({"error": "Durasi langganan harus berupa angka yang valid."}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": f"Terjadi kesalahan: {str(e)}"}, status=500)
+
+    return render(request, 'dashboard/subscription.html')
+
+
+def check_subscription(user):
+    """
+    Cek apakah pengguna memiliki langganan aktif dan valid.
+    """
+    if not user.is_authenticated:
+        return False
+
+    try:
+        subscription = Subscription.objects.get(user=user)
+        return subscription.is_subscription_valid()
+    except Subscription.DoesNotExist:
+        # Jika tidak ada langganan, return False
+        return False
+
+
 @login_required
-def rate_game_challenge(request, challenge_id):
-    if request.method == 'POST':
-        rating_value = request.POST.get('rating')
-        game_challenge = get_object_or_404(GameChallenge, id=challenge_id)
+def course_mentoring_page(request):
+    """
+    Halaman kursus dan mentoring.
+    Hanya dapat diakses jika langganan aktif.
+    """
+    if not check_subscription(request.user):
+        # Redirect ke halaman langganan jika langganan tidak aktif
+        return redirect('/subscription')
 
-        # Simpan rating
-        StoryRating.objects.update_or_create(
-            user=request.user,
-            game_challenge=game_challenge,
-            defaults={'rating': rating_value}
-        )
+    # Render halaman kursus jika langganan valid
+    return render(request, 'course/course_mentoring.html')
 
-        return redirect('game_challenge_dashboard')  # Redirect ke halaman dashboard tantangan
+from datetime import datetime
+from dateutil.relativedelta import relativedelta  # Jika Anda memiliki error terkait ini, pastikan `python-dateutil` sudah terinstal.
+
+@csrf_exempt
+def payment_success(request):
+    """
+    Endpoint untuk menerima konfirmasi dari Midtrans.
+    """
+    if request.method == "GET":
+        data = request.GET
+    elif request.method == "POST":
+        data = request.POST
+    else:
+        return JsonResponse({"error": "Invalid request method."})
+
+    try:
+        print("Request method:", request.method)
+        print("Data dari Midtrans:", data.dict())
+
+        # Periksa status pembayaran
+        if data.get('status_code') == "200" and data.get('transaction_status') == "settlement":
+            # Ambil order_id
+            order_id = data.get('order_id')
+            if not order_id:
+                return JsonResponse({"error": "Order ID tidak ditemukan."})
+
+            try:
+                # Pecah order_id untuk mendapatkan username dan months
+                username, months = order_id.split('-')
+                months = int(months)  # Konversi ke integer
+            except ValueError:
+                return JsonResponse({"error": "Format Order ID tidak valid."})
+
+            # Ambil pengguna berdasarkan username
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                return JsonResponse({"error": "Pengguna tidak ditemukan."})
+
+            # Hitung jumlah pembayaran (gross_amount)
+            gross_amount = months * 100000  # 100.000 per bulan
+            if gross_amount <= 0:
+                return JsonResponse({"error": "Jumlah pembayaran tidak valid."})
+
+            # Aktivasi langganan pengguna
+            activate_user_subscription(user, months)
+
+            # Kirim respons sukses
+            
+            return redirect('/course')
+        else:
+            return JsonResponse({"error": "Konfirmasi pembayaran gagal."})
+
+    except Exception as e:
+        print("Kesalahan saat memproses notifikasi Midtrans:", str(e))
+        return JsonResponse({"error": f"Kesalahan internal: {str(e)}"})
+
+
+def activate_user_subscription(user, months):
+    """
+    Aktifkan langganan setelah pembayaran berhasil.
+    """
+    try:
+        # Periksa apakah subscription sudah ada
+        subscription, created = Subscription.objects.get_or_create(user=user)
+
+        # Perbarui informasi aktifasi langganan
+        subscription.is_active = True
+        subscription.start_date = timezone.now()
+        subscription.end_date = timezone.now() + timezone.timedelta(days=30 * months)
+        subscription.save()
+
+        print(f"Langganan berhasil diaktifkan untuk user: {user.username}")
+        print("Detail langganan disimpan: ", subscription)
+    except Exception as e:
+        print("Kesalahan saat mengaktifkan langganan: ", e)

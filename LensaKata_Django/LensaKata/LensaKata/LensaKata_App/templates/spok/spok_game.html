@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SPOK Game</title>
+</head>
+<body>
+    <h1>Game SPOK</h1>
+<p>Rangkai kalimat seperti ini!</p>
+<div class="card mb-3">
+    <div class="card-body">{{ challenge.sentence }}</div>
+</div>
+<form method="POST">
+    {% csrf_token %}
+    <div class="row mb-3">
+        <label for="subject">Subjek:</label>
+        <div class="col">{{ form.subject }}</div>
+        <label for="predicate">Predikat:</label>
+        <div class="col">{{ form.predicate }}</div>
+        <label for="object">Objek:</label>
+        <div class="col">{{ form.object }}</div>
+        <label for="complement">Keterangan:</label>
+        <div class="col">{{ form.description }}</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Selesai</button>
+</form>
+
+
+    {% comment %} <h2>Rangkai kalimat seperti ini!</h2>
+    <p>{{ example_sentence }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="subject">Subjek:</label>
+        <input type="text" name="subject" id="subject"><br>
+        <label for="predicate">Predikat:</label>
+        <input type="text" name="predicate" id="predicate"><br>
+        <label for="object">Objek:</label>
+        <input type="text" name="object" id="object"><br>
+        <label for="complement">Keterangan:</label>
+        <input type="text" name="complement" id="complement"><br>
+        <h4>Tags:</h4>
+        {% for tag in tags %}
+            <button type="button" onclick="insertTag('{{ tag }}')">{{ tag }}</button>
+        {% endfor %}
+        <br><br>
+        <button type="submit">Selesai</button>
+    </form>
+
+    <script>
+        function insertTag(tag) {
+            let activeInput = document.activeElement;
+            if (activeInput && activeInput.tagName === 'INPUT') {
+                activeInput.value = tag;
+            }
+        }
+    </script> {% endcomment %}
+</body>
+</html>

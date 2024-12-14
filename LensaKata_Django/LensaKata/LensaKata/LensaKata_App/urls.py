@@ -8,7 +8,12 @@ urlpatterns = [
     path('google-one-tap-login/', google_one_tap_login, name='google_one_tap_login'),
     path('google-login/', google_login, name='google_login'),
     path('home/', views.home, name='home'), 
-    path('promo-langganan/', views.langganan_home, name='langganan_home'), 
+    path('promo-langganan/', views.langganan_home, name='langganan_home'),
+    path('subscription/', views.subscription_page, name="subscription"),
+    # Endpoint untuk menangani konfirmasi pembayaran dari Midtrans 
+    path('payment-success/', views.payment_success, name="payment_success"),
+    # Halaman kursus dan mentoring, hanya bisa diakses jika langganan aktif
+    path('course/', views.course_mentoring_page, name="course_mentoring_page"),
     path('mabar/', views.mabar, name='mabar'),    
     #path('game/', views.game, name='game'),
     path('dashboard/', views.dashboard, name='dashboard'), 
@@ -17,8 +22,8 @@ urlpatterns = [
     path('mengarang/', views.mengarang_view, name='mengarang'),
     path('mengarang/result/<int:pk>/', views.mengarang_result_view, name='mengarang_result'),
     path('accounts/', include('allauth.urls')),
-    path('rate_game_challenge/<int:challenge_id>/', rate_game_challenge, name='rate_game_challenge'),
-    path('game_challenge_dashboard/', game_challenge_dashboard, name='game_challenge_dashboard'),  # Pastikan ini ada
+    path('spok_game/', spok_game, name='spok_game'),
+    path('spok_result/<int:session_id>/', spok_result, name='spok_result'),
 ] 
 
 if settings.DEBUG:
