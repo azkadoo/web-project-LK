@@ -16,7 +16,7 @@ from .services.midtrans_service import create_payment_transaction
 from .models import Subscription
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
-from .models import Story, GameSession, UserProgress, ReviewCard
+from .models import Story, GameSession, UserProgress, ReviewCard, Kursus
 from .utils import get_user_level
 from dateutil.relativedelta import relativedelta
 # Create your views here.
@@ -117,9 +117,9 @@ def home(request):
     reviews = ReviewCard.objects.all()
     return render(request, 'home/home.html', {'reviews': reviews})
 
-@login_required
-def mabar(request):
-    return render(request, 'home/mabar.html')
+def tentang_kami(request):
+    return render(request, 'tentangkami.html')
+
 
 class GameView(View):
     def get(self, request, pk):
@@ -233,6 +233,33 @@ def check_subscription(user):
         # Jika tidak ada langganan, return False
         return False
 
+@login_required
+def check_subscription_status(request):
+    """
+    Endpoint untuk mengecek status langganan aktif pengguna.
+    Mengembalikan JSON untuk digunakan di frontend.
+    """
+    if check_subscription(request.user):
+        return JsonResponse({"status": "active"})
+    else:
+        return JsonResponse({"status": "inactive"})
+
+def langganan(request):
+    return render(request, 'langganan.html')
+
+def kursus(request):
+    return render(request,'kursus.html')
+
+def mentoring(request):
+    return render(request,'mentoring.html')
+
+def video_detail(request):
+    return render(request, 'video_detail.html')
+
+@login_required
+def mabar(request):
+    return render(request, 'home/mabar.html')
+
 
 @login_required
 def course_mentoring_page(request):
@@ -296,7 +323,7 @@ def payment_success(request):
 
             # Kirim respons sukses
             
-            return redirect('/course')
+            return redirect('/langganan?payment_success=true')
         else:
             return JsonResponse({"error": "Konfirmasi pembayaran gagal."})
 
@@ -323,3 +350,6 @@ def activate_user_subscription(user, months):
         print("Detail langganan disimpan: ", subscription)
     except Exception as e:
         print("Kesalahan saat mengaktifkan langganan: ", e)
+
+
+

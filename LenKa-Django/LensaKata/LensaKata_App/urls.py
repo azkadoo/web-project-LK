@@ -18,6 +18,12 @@ urlpatterns = [
     path('payment-success/', views.payment_success, name="payment_success"),
     # Halaman kursus dan mentoring, hanya bisa diakses jika langganan aktif
     path('course/', views.course_mentoring_page, name="course_mentoring_page"),
+    path('tentang-kami/', views.tentang_kami, name="tentang-kami"),
+    path('langganan/', views.langganan, name="langganan"),
+    path('kursus/', views.kursus, name="kursus"),
+    path('video_detail/', views.video_detail, name="video_detail"),
+    path('mentoring/', views.mentoring, name="mentoring"),
+    path('check-subscription/', check_subscription_status, name='check_subscription_status'),
 ] 
 
 if settings.DEBUG:

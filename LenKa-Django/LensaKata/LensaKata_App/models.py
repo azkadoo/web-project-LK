@@ -80,3 +80,26 @@ class Subscription(models.Model):
     def __str__(self):
         return f"{self.user.username} - Aktif: {self.is_active}"
 
+
+# Model untuk Kursus
+class Kursus(models.Model):
+    judul = models.CharField(max_length=255)
+    deskripsi = models.TextField()
+    gambar = models.ImageField(upload_to='kursus_images/',blank=True, null=True)  # Gambar disimpan di media/kursus_images/
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.judul
+
+# Model untuk Video Detail
+class VideoDetail(models.Model):
+    kursus = models.ForeignKey(Kursus, on_delete=models.CASCADE, related_name='video_details')
+    judul_video = models.CharField(max_length=255)
+    deskripsi_video = models.TextField()
+    video_url = models.URLField()  # URL Video YouTube atau lainnya
+    durasi = models.CharField(max_length=50, null=True, blank=True)  # Contoh: "10 Menit"
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.judul_video
+
