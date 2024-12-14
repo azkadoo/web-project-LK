@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Welcome, {{ user.username }}</h2>
+    <h3>Your Game Sessions</h3>
+    <ul>
+        {% for session in sessions %}
+            <li>
+                SPOK Game - {{ session.created_at }} - Score: {{ session.score }}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'spok_game' %}">Start SPOK Game</a>
+</body>
+</html>
