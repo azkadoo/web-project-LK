@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard</title>
+</head>
+<body>
+    <h1>Leaderboard</h1>
+    <h2>User Scores</h2>
+    <ul>
+        {% for user in leaderboard_data %}
+            <li>{{ user.username }}: {{ user.total_score }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Top Game Challenges</h2>
+ <ul>
+        {% for challenge in game_challenge_ratings %}
+            <li>{{ challenge.content }} - Average Rating: {{ challenge.average_rating|default:0 }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

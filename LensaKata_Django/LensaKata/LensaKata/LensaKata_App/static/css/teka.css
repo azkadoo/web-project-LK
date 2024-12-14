@@ -1,0 +1,108 @@
+:root {
+    --primary-color: #257180;
+    --secondary-color: #f2e5bf;
+    --base-color: #fff6dc;
+    --secondary-text: #257180;
+    --icon-base1: #cb6040;
+    --icon-base2: #389fb4;
+    --icon-base3: #fd8b51;
+    --card-color: #ffffff;
+    --base-variant: #f2e5bf;
+    --text-color: #257180;
+    --accent-color: linear-gradient(
+      90deg,
+      #bef4ff 0%,
+      #f2e5bf 28.58%,
+      #bef4ff 70%,
+      #f2e5bf 100%
+    );
+    --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.356);
+  }
+  footer {
+    background-color: #333;
+    color: #fff6dc;
+    padding: 20px;
+    display: flex;
+    height: 200px;
+    background: var(--primary-color);
+    margin-top: 30px;
+    justify-content: center;
+  }
+  .footer-content, .footer-links,.footer-game, .footer-bottom,.hak-cipta {
+    margin-top: 30px;
+    margin-left: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .footer-content p{
+    margin-bottom: 1px;
+  }
+  .social-media{
+    margin-bottom: 15px;
+    margin-left: 50px;
+    margin-top: 30px;
+  }
+  
+  .footer-game a{
+    color: #fff6dc;
+    text-decoration: none;
+  }
+  .footer-links a {
+    color: #fff6dc;
+    text-decoration: none;
+  }
+  
+  .social-media a {
+    color: #fff6dc;
+    margin: 2px;
+  
+  }
+  body {    /* Sesuaikan dengan tinggi navbar */
+    height: 100px;
+  }
+  header {
+    background: var(--primary-color) !important;
+    width: 100%;
+    height: 700vh;
+  }
+  
+  .nav-custom {
+    background: var(--secondary-text) !important;
+    box-shadow: 0px 8px 40px 0px rgba(3, 80, 95, 0.25);
+  }
+  
+  .text-primary-custom {
+    color: var(--text-color) !important;
+  }
+  
+  .text-secondary-custom {
+    color: var(--secondary, #000000) !important;
+  }
+  section {
+    height: auto;
+    /* Menghilangkan batasan tinggi untuk menyesuaikan layout */
+    padding: 20px 0;
+    /* Menambahkan sedikit padding atas-bawah */
+  }
+
+  header {
+    height: auto;
+    /* Agar header menyesuaikan dengan konten */
+  }
+  .fs-cus {
+    font-size: 2rem;
+    /* Ukuran teks lebih kecil */
+    text-align: left;
+    /* Teks di tengah */
+  }
+  .btn-cs {
+    background: var(--secondary, #f2e5bf) !important;
+    border-radius: 20px;
+    display: flex;
+    padding: var(--Space-200, 8px) 20px;
+    justify-content: center;
+    align-items: center;
+    gap: var(--Space-200, 8px);
+  }

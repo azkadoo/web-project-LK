@@ -1,0 +1,257 @@
+{% load static %}
+{% load bootstrap5 %}
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <!-- External Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Sidebar Toggle Button (visible on smaller screens) -->
+  <button class="toggle-btn btn btn-primary d-md-none">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="{% url 'dashboard' %}" class="active">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="{% url 'langganan' %}" id="langganan-btn">
+      <i class="fa-solid fa-credit-card"></i>
+    </a>
+    <a href="{% url 'account_logout' %}" id="logout-btn">
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </nav>  
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Cari Cerita....">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <!-- Greeting Card -->
+    <section class="greeting-card">
+      <div class="greeting-info">
+        <div class="timestamp">
+          {% now "M d, Y" %}
+        </div>
+        <h2>Selamat Datang, <span id="username">{{ request.user.username }}</span>!</h2>
+        <p>Selamat Berpetualang!</p>
+        <p class="level-box">Level: <strong>{{ user_level }}</strong></p>
+
+        <!-- Progress Bar -->
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: {{ progress }}%; background-color: #007bff;">
+            {{ progress|floatformat:1 }}%
+          </div>
+        </div>
+      </div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPC7ikoXgW66ZFb0JFMRADmdD8hxYbgk2N5g&s" alt="Foto" height="120" width="120">
+    </section>
+
+    <!-- Stats Row -->
+    <div class="row">
+      <!-- User Summary Card -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-star text-warning"></i> SUMMARY SESI TERAKHIR
+          </div>
+          <div class="card-body">
+            <h3>{{ total_score|default:"0" }}</h3>
+            <p>Total Score</p>
+            <p class="text-success">💪 Sedikit lagi! Terus maju, kamu hampir sampai!</p>
+            <span class="badge">+{{ latest_score }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges Achieved Card -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-trophy text-success"></i> TANTANGAN DICAPAI
+          </div>
+          <div class="card-body">
+            <h3>{{ total_challenges_completed|default:"0" }}</h3>
+            <p>Tantangan yang Diselesaikan</p>
+            <p class="text-success">🎯 Luar biasa! langkah kecilmu berarti besar!</p>
+            <span class="badge">+{{ latest_challenges_count }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Words Learned Card -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <i class="fas fa-book text-primary"></i> KATA BARU DIPELAJARI
+          </div>
+          <div class="card-body">
+            <h3>{{ total_words_learned }}</h3>
+            <p>Jumlah Kata Baru yang Dipelajari</p>
+            <p class="text-info">Kata Kunci Terbaru: {{ latest_game_session.matched_keywords }}</p>
+            <span class="badge">+{{ latest_matched_count }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="row">
+      <!-- Tantangan Baru Section -->
+      <div class="col-md-6">
+          <div class="card game-card">
+              <div class="card-header">
+                  <i class="fas fa-gamepad text-primary"></i> TANTANGAN BARU
+              </div>
+              <div class="card-body">
+                  <div class="row">
+                      <!-- Game 1 -->
+                      <div class="col-md-6 game-item">
+                          <div class="game-info">
+                              <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 1 icon" height="80" width="80">
+                              <h4>Petualangan Kata</h4>
+                              <p>Temukan & susun kata yang hilang!</p>
+                              <a href="/game/1/">
+                                  <button class="btn btn-primary">MAIN</button>
+                              </a>
+                          </div>
+                      </div>
+                      <!-- Game 2 -->
+                      <div class="col-md-6 game-item">
+                          <div class="game-info">
+                              <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 2 icon" height="80" width="80">
+                              <h4>Mengarang</h4>
+                              <p>Buat ceritamu disini!</p>
+                              <a href="{% url 'mengarang' %}">
+                                  <button class="btn btn-primary">MAIN</button>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+<!-- Leaderboard Section -->
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-trophy text-success"></i> LEADERBOARD
+        </div>
+        <div class="card-body-leaderboard">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Username</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in leaderboard_data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>  <!-- This will display the rank -->
+                            <td>{{ user.username }}</td>
+                            <td>{{ total_score }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">Tidak ada data pengguna.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</main>
+
+  <!-- Sidebar Toggle Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-QF1F4mr5i8dy4EnOYvsjxn6v74anKzR7hrjo+zJlPzK3fLgbsMg0iSmD7l8j5Mg6" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-xzdy7mlYPkmZTxwHpt1ZZowcIipF54bm/+6jfgTbRsIWTCpHK9c5WErD6ttCWHwc" crossorigin="anonymous"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+<script>
+function submitRating(challengeId) {
+    const rating = document.querySelector(`input[name="rating-${challengeId}"]:checked`);
+    if (rating) {
+        const ratingValue = rating.value;
+
+        // Kirim rating ke server menggunakan fetch API
+        fetch(`/rate_challenge/${challengeId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',  // Pastikan CSRF token disertakan
+            },
+            body: JSON.stringify({ rating: ratingValue })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(data.message);  // Tampilkan pesan sukses
+                // Anda bisa menambahkan logika untuk memperbarui tampilan jika diperlukan
+            } else {
+                alert('Gagal mengirim rating.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mengirim rating.');
+        });
+    } else {
+        alert('Silakan pilih rating sebelum mengirim.');
+    }
+}
+</script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.querySelector('.toggle-btn');
+      const sidebar = document.querySelector('.sidebar');
+      const content = document.querySelector('.content');
+
+      toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+        content.classList.toggle('shifted');
+      });
+    });
+  </script>
+
+  <!-- Search Filter Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.querySelector('.search-bar input');
+      const storyItems = document.querySelectorAll('.story-item');
+
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+
+        storyItems.forEach(item => {
+          const title = item.getAttribute('data-title').toLowerCase();
+          const description = item.getAttribute('data-description').toLowerCase();
+
+          item.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
