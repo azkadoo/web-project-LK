@@ -15,33 +15,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+  <link href="{% static 'css/mengarang.css' %}" rel="stylesheet">
 </head>
-    <style>
-        .btn-submit {
-            background-color: var(--primary-color); /* Menggunakan warna dari gamev3.css */
-            color: white; /* Warna teks */
-            border: none; /* Menghilangkan border */
-            border-radius: 5px; /* Sudut melengkung */
-            transition: background-color 0.3s; /* Efek transisi */
-            padding: 10px 20px; /* Padding untuk tombol */
-            font-size: 16px; /* Ukuran font */
-        }
-
-        .btn-submit:hover {
-            background-color: #0056b3; /* Warna saat hover */
-        }
-
-        .form-container {
-            margin-top: 20px; /* Jarak atas */
-            padding: 20px; /* Padding untuk form */
-            background: var(--secondary-color); /* Latar belakang */
-            border-radius: 10px; /* Sudut melengkung */
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Bayangan */
-        }
-    </style>
-</head>
-
 <body>
   <!-- Sidebar -->
   <nav class="sidebar">
@@ -55,24 +30,16 @@
       <i class="fas fa-sign-out-alt"></i>
     </a>
   </nav>  
-
-    <main>
+    <main class="content">
         <div class="container">
-            <div class="content">
-                <div class="title-container">
-                    <h1>Mengarang</h1>
-                </div>
-                <!-- Question Section -->
-                <div class="question-container">
-                    <div class="question">Tulis Ceritamu!</div>
-                </div>
-
+            <div class="title">Mengarang</div>
+            <div class="subtitle">Tulis Ceritamu!</div>
+            <div class="textarea-container mt-3">
                 <!-- Form Input -->
-                <form method="post" class="form-container">
+                <form method="post" class="text-area-container">
                     {% csrf_token %}
                     {{ form.as_p }} <!-- Menampilkan form dengan gaya yang sudah ada -->
-                    <div class="text-end mt-2"> <!-- Menambahkan kelas text-end untuk memposisikan tombol di kanan -->
-                        <button type="submit" class="btn btn-submit">
+                    <button type="submit" class="btn btn-submit">
                             <span>Kirim Cerita</span>
                             <i class="fas fa-paper-plane"></i>
                         </button>

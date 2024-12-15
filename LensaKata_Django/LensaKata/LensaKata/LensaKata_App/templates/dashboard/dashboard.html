@@ -41,7 +41,7 @@
   <main class="content">
     <!-- Search Bar -->
     <div class="search-bar">
-      <input type="text" placeholder="Cari Cerita....">
+      <input type="text" placeholder="Cari Game....">
       <i class="fas fa-search"></i>
     </div>
 
@@ -113,6 +113,7 @@
       </div>
     </div>
   <div class="row">
+    <div class="row">
       <!-- Tantangan Baru Section -->
       <div class="col-md-6">
           <div class="card game-card">
@@ -122,9 +123,9 @@
               <div class="card-body">
                   <div class="row">
                       <!-- Game 1 -->
-                      <div class="col-md-4 game-item">
+                      <div class="col-md-4 game-item" data-title="Baca Cerita" data-description="Temukan kata yang hilang!">
                           <div class="game-info">
-                              <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 1 icon" height="80" width="80">
+                              <img src="{% static 'Img/ion_book 3.svg' %}" alt="Game 1 icon" height="80" width="80">
                               <h4>Baca Cerita</h4>
                               <p>Temukan kata yang hilang!</p>
                               <a href="/game/1/">
@@ -133,9 +134,9 @@
                           </div>
                       </div>
                       <!-- Game 2 -->
-                      <div class="col-md-4 game-item">
+                      <div class="col-md-4 game-item" data-title="Mengarang" data-description="Buat ceritamu disini!">
                           <div class="game-info">
-                              <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 2 icon" height="80" width="80">
+                              <img src="{% static 'Img/bi_pen-fill 3.svg' %}" alt="Game 2 icon" height="80" width="80">
                               <h4>Mengarang</h4>
                               <p>Buat ceritamu disini!</p>
                               <a href="{% url 'mengarang' %}">
@@ -144,22 +145,49 @@
                           </div>
                       </div>
                       <!-- Game 3 -->
-                      <div class="col-md-4 game-item">
-                        <div class="game-info">
-                            <img src="https://static.vecteezy.com/system/resources/previews/007/780/279/non_2x/down-arrow-wooden-button-in-cartoon-style-an-asset-for-a-gui-in-a-mobile-app-or-casual-video-game-vector.jpg" alt="Game 2 icon" height="80" width="80">
-                            <h4>SPOK</h4>
-                            <p>Susun kata dengan benar!</p>
-                            <a href="{% url 'spok_game' %}">
-                                <button class="btn btn-primary">MAIN</button>
-                            </a>
-                        </div>
-                    </div>
+                      <div class="col-md-4 game-item" data-title="SPOK" data-description="Susun kata dengan benar!">
+                          <div class="game-info">
+                              <img src="{% static 'Img/ph_puzzle-piece-fill 3.svg' %}" alt="Game 3 icon" height="80" width="80">
+                              <h4>SPOK</h4>
+                              <p>Susun kata dengan benar!</p>
+                              <a href="{% url 'spok_game' %}">
+                                  <button class="btn btn-primary">MAIN</button>
+                              </a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
       </div>
-</div>
-</div>
+      <!-- Leaderboard Section -->
+      <div class="col-md-6">
+        <div class="card leaderboard-card">
+          <div class="card-header">
+            <i class="fas fa-trophy text-warning"></i> LEADERBOARD
+        </div>
+        <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>User</th>
+                            <th>Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in leaderboard %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.1 }}</td>  <!-- username -->
+                            <td>{{ user.2 }}</td>  <!-- total_score -->
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>    
 </div>
 </main>
 
@@ -171,21 +199,21 @@
   <!-- Search Filter Script -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const searchInput = document.querySelector('.search-bar input');
-      const storyItems = document.querySelectorAll('.story-item');
+        const searchInput = document.querySelector('.search-bar input');
+        const gameItems = document.querySelectorAll('.game-item'); // Change to .game-item
 
-      searchInput.addEventListener('input', () => {
-        const searchTerm = searchInput.value.toLowerCase();
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
 
-        storyItems.forEach(item => {
-          const title = item.getAttribute('data-title').toLowerCase();
-          const description = item.getAttribute('data-description').toLowerCase();
+            gameItems.forEach(item => {
+                const title = item.getAttribute('data-title').toLowerCase();
+                const description = item.getAttribute('data-description').toLowerCase();
 
-          item.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? '' : 'none';
+                item.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? '' : 'none';
+            });
         });
-      });
     });
-  </script>
+</script>
 
 </body>
 </html>

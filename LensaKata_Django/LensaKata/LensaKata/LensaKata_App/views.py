@@ -60,6 +60,8 @@ def login_view(request):
             return redirect('home')
     return render(request, 'login.html')
 
+from django.db import connection
+
 @login_required
 def dashboard(request):
     # Retrieve or create the user_progress instance first
@@ -141,6 +143,33 @@ def dashboard(request):
         latest_matched_keywords = latest_game_session.matched_keywords.split(', ')
         latest_matched_count = len(latest_matched_keywords)
 
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT u.id, u.username,
+                COALESCE(gs.total_score, 0) + COALESCE(gc.total_score, 0) + COALESCE(sp.total_score, 0) AS total_score
+            FROM auth_user u
+            LEFT JOIN (
+                SELECT user_id, SUM(score) AS total_score
+                FROM LensaKata_App_gamesession
+                GROUP BY user_id
+            ) gs ON u.id = gs.user_id
+            LEFT JOIN (
+                SELECT user_id, SUM(score) AS total_score
+                FROM LensaKata_App_gamechallenge
+                GROUP BY user_id
+            ) gc ON u.id = gc.user_id
+            LEFT JOIN (
+                SELECT user_id, SUM(score) AS total_score
+                FROM LensaKata_App_spoksession
+                GROUP BY user_id
+            ) sp ON u.id = sp.user_id
+            GROUP BY u.id, u.username
+            HAVING COALESCE(gs.total_score, 0) + COALESCE(gc.total_score, 0) + COALESCE(sp.total_score, 0) > 0
+            ORDER BY total_score DESC
+            LIMIT 10;
+        """)
+        leaderboard = cursor.fetchall()  # Ini akan menjadi list of tuples
+        
     return render(request, 'dashboard/dashboard.html', {
         'user': request.user,
         'stories': stories,
@@ -158,6 +187,7 @@ def dashboard(request):
         'user_level': user_level,
         'progress': progress,
         'sessions': user_sessions,
+        'leaderboard': leaderboard,
     })
 
 def home(request):

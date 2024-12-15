@@ -1,58 +1,84 @@
+{% load static %}
+{% load bootstrap5 %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPOK Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/spok_game.css' %}">
 </head>
 <body>
-    <h1>Game SPOK</h1>
-<p>Rangkai kalimat seperti ini!</p>
-<div class="card mb-3">
-    <div class="card-body">{{ challenge.sentence }}</div>
-</div>
-<form method="POST">
-    {% csrf_token %}
-    <div class="row mb-3">
-        <label for="subject">Subjek:</label>
-        <div class="col">{{ form.subject }}</div>
-        <label for="predicate">Predikat:</label>
-        <div class="col">{{ form.predicate }}</div>
-        <label for="object">Objek:</label>
-        <div class="col">{{ form.object }}</div>
-        <label for="complement">Keterangan:</label>
-        <div class="col">{{ form.description }}</div>
-    </div>
-    <button type="submit" class="btn btn-primary">Selesai</button>
-</form>
-
-
-    {% comment %} <h2>Rangkai kalimat seperti ini!</h2>
-    <p>{{ example_sentence }}</p>
-
-    <form method="POST">
-        {% csrf_token %}
-        <label for="subject">Subjek:</label>
-        <input type="text" name="subject" id="subject"><br>
-        <label for="predicate">Predikat:</label>
-        <input type="text" name="predicate" id="predicate"><br>
-        <label for="object">Objek:</label>
-        <input type="text" name="object" id="object"><br>
-        <label for="complement">Keterangan:</label>
-        <input type="text" name="complement" id="complement"><br>
-        <h4>Tags:</h4>
-        {% for tag in tags %}
-            <button type="button" onclick="insertTag('{{ tag }}')">{{ tag }}</button>
-        {% endfor %}
-        <br><br>
-        <button type="submit">Selesai</button>
-    </form>
-
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="{% url 'dashboard' %}" class="active">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="{% url 'langganan' %}" id="langganan-btn">
+            <i class="fa-solid fa-credit-card"></i>
+        </a>
+        <a href="{% url 'account_logout' %}" id="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
+    </nav>  
+    <main class="content">
+        <div class="title">SPOK</div>
+        <div class="subtitle">Rangkai kalimat seperti ini!</div>
+        <div class="sentence-box">{{ challenge.sentence }}</div>
+        <form method="POST" class="mb-4">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center flex-wrap">
+                <div class="category-box">
+                    S - Subjek
+                    {{ form.subject }}
+                </div>
+                <div class="category-box">
+                    P - Predikat
+                    {{ form.predicate }}
+                </div>
+                <div class="category-box">
+                    O - Objek
+                    {{ form.object }}
+                </div>
+                <div class="category-box">
+                    K - Keterangan
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="d-flex justify-content-center flex-wrap word-box" id="word-box">
+                <span class="draggable-word" onclick="insertTag('{{ challenge.subject }}')">{{ challenge.subject }}</span>
+                <span class="draggable-word" onclick="insertTag('{{ challenge.predicate }}')">{{ challenge.predicate }}</span>
+                <span class="draggable-word" onclick="insertTag('{{ challenge.object }}')">{{ challenge.object }}</span>
+                <span class="draggable-word" onclick="insertTag('{{ challenge.description }}')">{{ challenge.description }}</span>
+            </div> 
+            <button type="submit" class="btn btn-finish">Selesai</button>
+        </form>
+    </main>
     <script>
         function insertTag(tag) {
             let activeInput = document.activeElement;
             if (activeInput && activeInput.tagName === 'INPUT') {
-                activeInput.value = tag;
+                activeInput.value += tag + ' ';
             }
         }
-    </script> {% endcomment %}
+
+        function shuffleWords() {
+            const wordBox = document.getElementById('word-box');
+            const words = Array.from(wordBox.children);
+            for (let i = words.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [words[i], words[j]] = [words[j], words[i]];
+            }
+            wordBox.innerHTML = '';
+            words.forEach(word => wordBox.appendChild(word));
+        }
+
+        // Shuffle words on page load
+        window.onload = shuffleWords;
+    </script>
 </body>
 </html>

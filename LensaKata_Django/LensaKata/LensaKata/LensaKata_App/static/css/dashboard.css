@@ -25,7 +25,9 @@
     overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi tinggi */
     border-radius: 10px;
   }
-
+  img {
+    filter: hue-rotate(354deg); /* Adjust the hue */
+}
 
   /* Global Styles */
   body {
@@ -134,6 +136,11 @@
     box-shadow: var(--box-shadow);
     position: relative;
   }
+
+  .leaderboard-card {
+    height: 275px; /* Atur tinggi tetap sesuai kebutuhan */
+    overflow-y: auto; /* Izinkan scroll vertikal jika konten melebihi tinggi */
+}
   
   .card-header {
     background-color: transparent;
