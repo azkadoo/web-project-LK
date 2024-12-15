@@ -1,0 +1,224 @@
+{% load static %}
+{% load bootstrap5 %}
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'Img/logo-4.svg' %}">
+  <!-- External Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Sidebar Toggle Button (visible on smaller screens) -->
+  <button class="toggle-btn btn btn-primary d-md-none">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <a href="{% url 'dashboard' %}" class="active">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="{% url 'langganan' %}" id="langganan-btn">
+      <i class="fa-solid fa-credit-card"></i>
+    </a>
+    <a href="{% url 'account_logout' %}" id="logout-btn">
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </nav>  
+
+  <!-- Main Content Area -->
+  <main class="content">
+    <!-- Search Bar -->
+    <div class="search-bar" style="font-weight: bolder; border-radius: 15px;">
+      <input type="text" placeholder="Cari game....">
+      <i class="fas fa-search" style="color: var(--primary-color);"></i>
+    </div>
+
+    <!-- Greeting Card -->
+    <section class="greeting-card">
+      <div class="greeting-info">
+        <h2>Halo, <b id="username">{{ request.user.username }}</b>! Selamat bermain!</h2>      
+        <!-- Progress Bar -->
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;">
+            {{ progress|floatformat:1 }}%
+          </div>
+        </div>
+      </div>
+      <p class="level-box">Level <strong>{{ user_level }}</strong></p>
+    </section>
+
+    <!-- Stats Row -->
+    <div class="row">
+      <!-- User Summary Card -->
+      <div class="col-md-3">
+        <div class="card summary-card">
+          <div class="card-header">
+            <i class="fas fa-star text-warning" style="color:var(--secondary-color)"></i> 
+            <span class="card-title">Rangkuman Permainanmu</span>
+          </div>
+          <div class="card-body">
+            <h3>{{ total_score|default:"0" }}</h3>
+            <p style="color: var(--base-color)">Total Score</p>
+            <p style="color: var(--secondary-color)">💪 Kejar kemampuan tertinggimu!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- New Word Learned Card -->
+      <div class="col-md-3">
+        <div class="card words-card">
+          <div class="card-header">
+            <i class="fa-solid fa-book" style="color: var(--secondary-color)"></i> 
+            <span class="card-title">Kata yang sudah digunakan</span>
+          </div>
+          <div class="card-body">
+            <h3>{{ latest_matched_count }}</h3>
+            <p style="color: var(--base-color)">Kata kunci baru</p>
+            <p style="color: var(--secondary-color)">{{ latest_game_session.matched_keywords }}</p>
+          </div>
+        </div>
+      </div>
+
+<!-- Mentoring Card -->
+<div class="col-md-6">
+  <div class="card mentoring-card">
+      <div class="row">
+          <div class="col-9">
+              <a href="{% url 'mentoring' %}" style="text-decoration: none; color: inherit;">
+                  <div class="card-title-mentoring" style="font-size:24px">
+                      Makin jago bercerita dengan <span style="font-weight: bold;">Mentoring!</span>
+                  </div>
+                  <div class="card-subtitle" style="color: var(--secondary-color)">
+                      Belajar mengarang dan membaca cerita dengan mentor bahasa.
+                  </div>
+              </a>
+          </div>
+          <div class="col-3 d-flex align-items-center justify-content-end">
+              <a href="{% url 'mentoring' %}" style="text-decoration: none; color: inherit;">
+                <i>
+                  <img style="width: 140px;" src="{% static 'Img/game-icons_read.png' %}" alt="Deskripsi Gambar">
+              </i>              
+            </a>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+      </div>
+    </div>
+  <div class="row">
+      <!-- Tantangan Baru Section -->
+      <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card game-card-baca-cerita" data-title="Baca Cerita" data-description="Temukan cerita baru!">
+                    <div class="card-body text-center">
+                        <img src="{% static 'Img/ion_book 3.svg' %}" alt="Game 1 icon" height="80" width="80">
+                        <h4 class="mt-2">Baca Cerita</h4>
+                        <p style="color: var(--secondary-color)">Temukan cerita baru!</p>
+                        <a href="/game/1/">
+                            <button class="btn btn-primary mt-2">Main!</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="col-md-4">
+              <div class="card game-card-mengarang" data-title="Mengarang" data-description="Buat ceritamu sendiri!">
+                  <div class="card-body text-center">
+                      <img src="{% static 'Img/bi_pen-fill 3.svg' %}" alt="Game 2 icon" height="80" width="80">
+                      <h4 class="mt-2">Mengarang</h4>
+                      <p style="color: var(--secondary-color)">Buat ceritamu sendiri!</p>
+                      <a href="{% url 'mengarang' %}">
+                          <button class="btn btn-primary mt-2">Main!</button>
+                      </a>
+                  </div>
+              </div>
+          </div>
+  
+          <div class="col-md-4">
+            <div class="card game-card-spok" data-title="SPOK" data-description="Susun kalimat!">
+                <div class="card-body text-center">
+                    <img src="{% static 'Img/ph_puzzle-piece-fill 3.svg' %}" alt="Game 3 icon" height="80" width="80">
+                    <h4 class="mt-2">SPOK</h4>
+                    <p style="color: var(--secondary-color)">Susun kalimat!</p>
+                    <a href="{% url 'spok_game' %}">
+                        <button class="btn btn-primary mt-2">Main!</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+      <!-- Leaderboard Section -->
+      <div class="col-md-6">
+        <div class="card leaderboard-card">
+          <div class="card-header">
+              <i class="fas fa-trophy text-warning"></i> 
+              <span class="card-title">Papan Skor</span>
+          </div>
+          <div class="card-body">
+              <table class="table no-border">
+                  <thead>
+                      <tr>
+                          <th style="color:var(--base-color);">Rank</th> <!-- Change color here -->
+                          <th style="color:var(--base-color)">User </th> <!-- Change color here -->
+                          <th style="color:var(--base-color)">Total Score</th> <!-- Change color here -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for user in leaderboard %}
+                      <tr>
+                          <td style="color:var(--secondary-color)">{{ forloop.counter }}</td> <!-- Change color here -->
+                          <td style="color:var(--secondary-color)">{{ user.1 }}</td>  <!-- username -->
+                          <td style="color:var(--secondary-color)">{{ user.2 }}</td>  <!-- total_score -->
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+  </div>
+</main>
+
+  <!-- Sidebar Toggle Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-QF1F4mr5i8dy4EnOYvsjxn6v74anKzR7hrjo+zJlPzK3fLgbsMg0iSmD7l8j5Mg6" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-xzdy7mlYPkmZTxwHpt1ZZowcIipF54bm/+6jfgTbRsIWTCpHK9c5WErD6ttCWHwc" crossorigin="anonymous"></script>  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.querySelector('.search-bar input');
+        const gameItems = document.querySelectorAll('.card'); // Select all game cards
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            gameItems.forEach(item => {
+                const title = item.getAttribute('data-title') ? item.getAttribute('data-title').toLowerCase() : '';
+                const description = item.getAttribute('data-description') ? item.getAttribute('data-description').toLowerCase() : '';
+
+                // Check if the title or description includes the search term
+                item.style.display = (title.includes(searchTerm) || description.includes(searchTerm)) ? '' : 'none';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

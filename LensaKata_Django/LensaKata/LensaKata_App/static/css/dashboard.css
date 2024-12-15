@@ -1,0 +1,354 @@
+:root {
+    /* Color Scheme */
+    --primary-color: #257180;
+    --secondary-color: #f2e5bf;
+    --third-color: #389FB4;
+    --base-color: #fff6dc;
+    --secondary-text: #257180;
+    --icon-base1: #cb6040;
+    --icon-base2: #389fb4;
+    --icon-base3: #fd8b51;
+    --card-color: #ffffff;
+    --base-variant: #f2e5bf;
+    --text-color: #257180;
+    --accent-color: linear-gradient(90deg, #bef4ff 0%, #f2e5bf 28.58%, #bef4ff 70%, #f2e5bf 100%);
+    --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.356);
+  }
+  
+  .story-card {
+    cursor: pointer;
+    overflow: visible; /* Biarkan teks terlihat penuh di modal */
+    pointer-events: auto; /* Aktifkan klik */
+  }
+
+  img {
+    filter: hue-rotate(354deg); /* Adjust the hue */
+}
+
+  /* Global Styles */
+  body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: row;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    background-color: var(--primary-color);
+    height: 100vh;
+    padding: 20px 0;
+    position: fixed;
+    width: 60px;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+  
+  .sidebar a {
+    color: var(--card-color);
+    display: block;
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .sidebar a i {
+    font-size: 1.4em;
+  }
+  
+  /* Content Area */
+  .content {
+    margin-left: 80px;
+    padding: 20px;
+    flex-grow: 1;
+    transition: margin-left 0.3s;
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    background-color: var(--card-color);
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+  }
+  
+  .search-bar input {
+    border: none;
+    flex: 1;
+    outline: none;
+  }
+  
+  .search-bar i {
+    color: var(--icon-base1);
+  }
+  
+/* Greeting Card */
+.greeting-card {
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    color: var(--card-color);
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    position: relative;
+}
+
+.greeting-info {
+    flex: 1; /* Memastikan greeting-info mengambil ruang yang tersedia */
+}
+
+.greeting-card img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+}
+
+.greeting-card h2 {
+  color: var(--secondary-color)
+}
+
+.progress {
+    width: 100%; /* Pastikan progress bar memiliki lebar penuh */
+    margin-top: 15px; /* Jarak atas untuk memisahkan dari elemen di atas */
+}
+
+.greeting-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    opacity: 0.1;
+    border-radius: 10px;
+}
+  
+  /* Card */
+  .card {
+    border: none;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    align-items: center;
+  }
+
+  .leaderboard-card {
+    background-color: var(--primary-color);
+    height: 250px; /* Atur tinggi tetap sesuai kebutuhan */
+    overflow-y: auto; /* Izinkan scroll vertikal jika konten melebihi tinggi */
+    align-items: normal;
+    text-align: center;
+}
+  
+  .card-header {
+    background-color: var(--third-color);
+    background-color: transparent;
+    border-bottom: none;
+    padding-top: 20px;
+    font-weight: bold;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+
+  .summary-card {
+    background-color: var(--third-color); /* Ganti dengan warna yang diinginkan */
+    text-align: center;
+}
+
+.challenges-card {
+    background-color: var(--icon-base1); /* Ganti dengan warna yang diinginkan */
+}
+
+.words-card {
+    background-color: var(--icon-base1); /* Ganti dengan warna yang diinginkan */
+    text-align: center;
+  }
+
+.mentoring-card {
+  background-color: #f88d4a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  height: 220px;
+}
+
+.mentoring-card .card-title-mentoring {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 18px;
+}
+.mentoring-card .card-subtitle {
+  font-size: 16px;
+  font-weight: normal;
+}
+.mentoring-card .icon {
+  font-size: 100px;
+  color: #f5e8c7;
+}
+
+.summary-card h3, .words-card h3, .mentoring-card h3 {
+  color: var(--base-color);
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+.game-card-baca-cerita h4, .game-card-mengarang h4, .game-card-spok h4 {
+  color: var(--base-color);
+  font-weight: bold;
+}
+
+.text-container {
+  flex: 1; /* Allow text container to take available space */
+}
+
+.game-card-baca-cerita {
+  background-color: var(--third-color);
+}
+
+.game-card-mengarang {
+  background-color: var(--icon-base1);
+}
+
+.game-card-spok {
+  background-color: var(--icon-base3);
+}
+/* Jika Anda ingin mengatur warna untuk card-header */
+.summary-card .card-header {
+    background-color: var(--summary-header-color); /* Ganti dengan warna yang diinginkan */
+}
+
+.challenges-card .card-header {
+    background-color: var(--challenges-header-color); /* Ganti dengan warna yang diinginkan */
+}
+
+.mentoring-card .card-header {
+    background-color: var(--words-header-color); /* Ganti dengan warna yang diinginkan */
+}
+
+.card-title {
+  color: var(--base-color); /* Change this to your desired color */
+  text-align: center;
+  font-size: 20px;
+}
+
+.header-color {
+  color: var(--base-color); /* Change this to your desired color for headers */
+  font-weight: bolder;
+}
+.cell-color {
+  color: var(--secondary-color); /* Change this to your desired color for cells */
+}
+
+.no-border {
+  border: none; /* Remove border from the table */
+}
+.no-border th, .no-border td {
+  border: none; /* Remove border from table headers and cells */
+}
+  
+  /* Button */
+  .btn-primary {
+    background-color: var(--base-color); /* Custom color */
+    transition: background-color 0.3s ease; /* Optional: smooth transition for the background color */
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 15px;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color); /* New color on hover (change to your desired hover color) */
+}
+  
+  .toggle-btn {
+    display: none;
+  }
+  
+  /* Badge */
+  .badge {
+    background-color: var(--icon-base1);
+    color: var(--card-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+  
+  /* Progress Bar */
+  .progress-bar {
+    background-color: #c7bb93;
+    transition: width 0.6s ease;
+    width: 100%
+  }
+
+
+  .level-box {
+    height: 10px;
+  }
+  
+  /* Achievement Card */
+  .achievement-card {
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    align-items: center;
+  }
+  
+  .achievement-card img {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    margin-right: 20px;
+  }
+  
+  .achievement-card .achievement-info {
+    flex-grow: 1;
+  }
+  
+  .achievement-card .achievement-info h4 {
+    margin: 0;
+    font-size: 1.2em;
+  }
+  
+  .achievement-card .achievement-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--secondary-text);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 10px 0;
+      z-index: 1000;
+    }
+  
+    .content {
+      margin-left: 0;
+      margin-top: 70px;
+    }
+  
+    .sidebar a {
+      margin: 0;
+    }
+  }  
