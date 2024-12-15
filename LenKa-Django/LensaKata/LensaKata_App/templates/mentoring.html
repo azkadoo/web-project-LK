@@ -13,95 +13,76 @@
 
 <body>
     <header>
-        <section class="d-flex align-items-center">
-            <div class="container pt-1 pb-1"><div class="mb-4">
-                <a href="{% url 'langganan' %}" class="btn btn-back btn-light">
-                    ← Kembali ke Halaman Sebelumnya
-                </a>
-            </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <!-- Chat Room -->
-                            <div class="card border border-5">
-                                <div class="card-header text-white d-flex justify-content-between align-items-center"
-                                    style=" background-color: #257180">
-                                    <h5 class="mb-0">Mentoring Chat Room</h5>
-                                    <span id="user-status" class="badge bg-primary">Online</span>
-                                </div>
-                                <div class="card-body chat-room" id="chat-room"
-                                    style="height: 400px; overflow-y: scroll;">
-                                    <!-- Chat Messages -->
-                                    <!-- Contoh pesan: -->
-                                    <!-- Pesan dari pengguna -->
-                                    <div class="d-flex flex-row justify-content-end mb-3">
-                                        <div class="p-3 bg-primary text-white rounded" style="max-width: 70%;">
-                                            Halo, mentor! Saya ingin bertanya.
-                                        </div>
-                                    </div>
-                                    <!-- Pesan dari mentor -->
-                                    <div class="d-flex flex-row justify-content-start mb-3">
-                                        <div class="p-3 bg-secondary text-white rounded" style="max-width: 70%; ">
-                                            Tentu, silakan tanyakan apa yang ingin Anda ketahui!
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer">
-                                    <form id="message-form" class="d-flex">
-                                        <input type="text" id="message-input" class="form-control me-2"
-                                            placeholder="Ketik pesan Anda di sini..." required>
-                                        <button type="submit" class="btn btn-primary">Kirim</button>
-                                    </form>
-                                </div>
+        <section class="py-4 bg-light">
+            <div class="container">
+                <div class="mb-4">
+                    <a href="{% url 'langganan' %}" class="btn btn-back">
+                        ← Kembali ke Halaman Sebelumnya
+                    </a>
+                </div>
+                <!-- Section Header -->
+                <div class="text-center mb-5">
+                    <h2 class="section-header text-primary-custom">Butuh bimbingan? Nikmati sesi mentoring yang personal
+                        bersama ahlinya</h2>
+                    <p class="text-primary-custom">Jadikan tantangan sebagai peluang! Bersama mentor, temukan cara
+                        terbaik untuk berkembang</p>
+                </div>
+                <div class="row justify-content-center mt-2">
+                    <div class="col-12 col-sm-7 col-md-4 text-center mb-5">
+                        <div class="card text-primary-custom border border-3">
+                            <div class="card-body">
+                                <i class="bi bi-camera-video-fill" style="font-size: 70px;"></i>
+                                <h5 class="card-title fw-bold">Mentoring via zoom</h5>
+                                <p class="card-text">Sesi Mentoring secara langsung bersama mentor terpercaya melalui
+                                    platform Zoom</p>
+                                <a href="#" id="btn-mulai-belajar">
+                                    <button class="btn btn-primary" style=" background-color: #257180" data-bs-toggle="modal" data-bs-target="#zoomModal">Klik
+                                        Disini</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-7 col-md-4 text-center mb-5">
+                        <div class="card text-primary-custom">
+                            <div class="card-body border border-3">
+                                <i class="bi bi-chat-dots-fill" style="font-size: 70px;"></i>
+                                <h5 class="card-title fw-bold">Mentoring via WhatsApp</h5>
+                                <p class="card-text">Sesi mentoring secara personal melalui platform WhatsApp
+                                    mengarang</p>
+                                <a href="https://wa.me/6281234567890" target="_blank" id="btn-mulai-mentoring">
+                                    <button class="btn btn-primary" style=" background-color: #257180">Klik
+                                        Disini</button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endblock %}
+            </div>
+        </section>
+    </header>
+    <!-- Modal untuk Mentoring via Zoom -->
+    <div class="modal fade" id="zoomModal" tabindex="-1" aria-labelledby="zoomModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="zoomModalLabel">Mentoring via Zoom</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Maaf, link Zoom untuk sesi mentoring masih belum tersedia.
+                    Silahkan Hubungi Admin LensaKata untuk mendapatkan informasi mengenai jadwal zoom bersama mentor
+                </div>
+                <div class="modal-footer">
+                    <a href="https://wa.me/6281234567890" target="_blank" id="btn-mulai-mentoring">
+                        <button class="btn btn-primary" style=" background-color: #257180">Hubungi Admin</button>
+                    </a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}
 
-                {% block extra_js %}
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        const chatRoom = document.getElementById('chat-room');
-                        const messageForm = document.getElementById('message-form');
-                        const messageInput = document.getElementById('message-input');
-
-                        // Fungsi untuk menambah pesan ke chat room
-                        function addMessage(message, sender) {
-                            const messageDiv = document.createElement('div');
-                            const messageContent = document.createElement('div');
-                            messageContent.textContent = message;
-                            messageContent.style.maxWidth = '70%';
-                            messageContent.classList.add('p-3', 'text-white', 'rounded', 'mb-3');
-
-                            if (sender === 'user') {
-                                messageDiv.classList.add('d-flex', 'flex-row', 'justify-content-end');
-                                messageContent.classList.add('bg-primary');
-                            } else {
-                                messageDiv.classList.add('d-flex', 'flex-row', 'justify-content-start');
-                                messageContent.classList.add('bg-secondary');
-                            }
-
-                            messageDiv.appendChild(messageContent);
-                            chatRoom.appendChild(messageDiv);
-                            chatRoom.scrollTop = chatRoom.scrollHeight; // Otomatis scroll ke bawah
-                        }
-
-                        // Event listener untuk form pengiriman pesan
-                        messageForm.addEventListener('submit', function (e) {
-                            e.preventDefault();
-                            const message = messageInput.value.trim();
-
-                            if (message) {
-                                addMessage(message, 'user'); // Tambahkan pesan dari pengguna
-
-                                // Kirim pesan ke server (dummy response dari mentor)
-                                setTimeout(() => {
-                                    addMessage('Ini adalah balasan dari mentor.', 'mentor');
-                                }, 1000);
-                            }
-
-                            messageInput.value = '';
-                        });
-                    });
-                </script>
-                {% endblock %}
+{% block extra_js %}
+{% endblock %}
