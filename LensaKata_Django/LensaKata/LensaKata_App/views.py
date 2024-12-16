@@ -430,14 +430,14 @@ def langganan(request):
 def kursus(request):
     if not check_subscription(request.user):
         # Redirect ke halaman langganan jika langganan tidak aktif
-        return redirect('/langganan')
+        return redirect('dashboard/langganan')
     # Render halaman kursus jika langganan valid
     return render(request, 'course/kursus.html')
 
 def kursus_list(request):
     if not check_subscription(request.user):
     # Redirect ke halaman langganan jika langganan tidak aktif
-        return redirect('/langganan')
+        return redirect('dashboard/langganan')
     
     kursus_list = Kursus.objects.all()  # Ambil semua kursus
     return render(request, 'course/kursus.html', {'kursus_list': kursus_list})
@@ -445,7 +445,7 @@ def kursus_list(request):
 def mentoring(request):
     if not check_subscription(request.user):
         # Redirect ke halaman langganan jika langganan tidak aktif
-        return redirect('/langganan')
+        return redirect('dashboard/langganan')
     return render(request,'dashboard/mentoring.html')
 
 def video_detail(request, kursus_id):
